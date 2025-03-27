@@ -1,7 +1,7 @@
 
 import jwt from 'jsonwebtoken';
 import {asyncHandler} from "./asyncHandler.js";
-import UserModel from "../modals/UserModel.js";
+import UserModels from "../models/UserModels.js";
 
 export const protectRoute = asyncHandler(async (req, res, next) => {
     let token;
@@ -13,7 +13,7 @@ export const protectRoute = asyncHandler(async (req, res, next) => {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
 
-            req.user = await UserModel.findById(decoded.userId).select("-password");
+            req.user = await UserModels.findById(decoded.userId).select("-password");
             // -password - not include the password
 
             next();

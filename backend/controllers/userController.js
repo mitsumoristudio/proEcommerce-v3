@@ -1,6 +1,6 @@
 
 import {asyncHandler} from "../middleware/asyncHandler.js"
-import UserModel from "../models/userModel.js"
+import UserModels from "../models/UserModels.js"
 import jwt from 'jsonwebtoken'
 import {generateToken} from "../config/generateToken.js";
 
@@ -10,7 +10,7 @@ import {generateToken} from "../config/generateToken.js";
 export const authUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body
 
-    const user = await UserModel.findOne({email : email});
+    const user = await UserModels.findOne({email : email});
 
     if (user && (await user.matchPassword(password))) {
         const createToken = jwt.sign({userId: user._id}, process.env.JWT_SECRET_TOKEN, {
@@ -44,13 +44,13 @@ export const authUser = asyncHandler(async (req, res) => {
 export const registerUser = asyncHandler(async (req, res) => {
     const {name, email, password} = req.body;
 
-    const userExists = await UserModel.findOne({email : email});
+    const userExists = await UserModels.findOne({email : email});
 
     if (userExists) {
         res.status(400).json({message: `User already exists`});
     }
 
-    const user = await UserModel.create({
+    const user = await UserModels.create({
         name: name,
         email: email,
         password: password,
@@ -85,7 +85,7 @@ export const logoutUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/profile
 // @access  Private
 export const getUserProfile = asyncHandler(async (req, res) => {
-    const user = await UserModel.findById(req.user._id);
+    const user = await UserModels.findById(req.user._id);
 
     if (user) {
         res.json({
@@ -104,7 +104,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 // @route   PUT /api/users/profile
 // @access  Private
 export const updateUserProfile = asyncHandler(async (req, res) => {
-    const user = await UserModel.findById(req.user._id);
+    const user = await UserModels.findById(req.user._id);
 
     if (user) {
         user.name = req.body.name || user.name;
