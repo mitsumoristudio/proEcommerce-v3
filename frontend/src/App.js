@@ -1,9 +1,19 @@
 
+import TopNavBar from "./components/TopNavBar";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {ToastContainer} from "react-toastify";
 
 export default function App() {
   return (
       <>
-      <div className={"text-blue-600 font-semibold text-xl"}>Good Afternoon Mia</div>
+      <Router>
+          <ToastContainer />
+
+          <TopNavBar />
+          <Routes>
+
+          </Routes>
+      </Router>
       </>
   )
 }

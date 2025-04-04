@@ -2,7 +2,7 @@ import express from 'express';
 import {protectRoute, admin} from "../middleware/authMiddleware.js";
 
 import {authUser, registerUser, logoutUser, getUserProfile, updateUserProfile, getAllUsers,
-deleteUser, getUserById, updateUser} from "../controllers/userController.js";
+deleteUser, getUserDetails, updateUser} from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -15,7 +15,7 @@ router.route("/profile").get(protectRoute, getUserProfile);
 router.route("/profile").put(protectRoute, updateUserProfile);
 
 router.route("/:id").delete(protectRoute, admin, deleteUser);
-router.route("/:id").get(protectRoute, admin, getUserById);
+router.route("/:id").get(protectRoute, admin, getUserDetails);
 router.route("/:id").put(protectRoute, admin, updateUser);
 
 export default router;
