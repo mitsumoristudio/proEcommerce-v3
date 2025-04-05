@@ -3,23 +3,20 @@ import {useState, useEffect} from "react";
 import {assets} from "../assets/assets";
 import {NavLink, useNavigate} from "react-router-dom";
 import {FaShoppingCart, FaUser, FaFlagUsa} from "react-icons/fa";
+import { RiAdminLine } from "react-icons/ri";
 import SearchBar from "./SearchBar";
-import {DisclosureButton, Disclosure} from "@headlessui/react";
+
 
 export default function TopNavBar() {
 
     const navigate = useNavigate();
     const [showMenu, setShowMenu] = React.useState(false);
 
-    const headerProfileNavigation = [
-        {name: "Profile", href: "/profile"},
-        {name: "Sign out", href: "/signout"},
-    ]
-
     return (
         <>
             {/* Navbar Admin Icon */}
-            <div className={'flex items-center justify-between text-sm py-1 px-1 mb-2 border-b border-b-gray-600'}>
+            <header>
+            <div className={'flex items-center justify-between text-sm px-1 border-b border-b-gray-600'}>
                 <div className={'flex items-center justify-center px-1 mx-1 gap-2'}>
                 <img onClick={() => navigate("/")}
                      alt={"header-logo"}
@@ -48,7 +45,7 @@ export default function TopNavBar() {
                         <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                     </NavLink>
 
-                    <NavLink to={"/contact"}>
+                    <NavLink to={"/about"}>
                         <li className={"py-2 md: text-md lg: text-lg xl: text-xl"}>ABOUT</li>
                         <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                     </NavLink>
@@ -56,18 +53,69 @@ export default function TopNavBar() {
 
                 {/* Search Bar Shopping Cart and Login */}
                 <div className={"flex items-center gap-6 px-4"}>
-                    <SearchBar />
+                    <SearchBar/>
 
                     <NavLink to={"/cart"}>
-                        <FaShoppingCart size={26} />
+                        <FaShoppingCart size={26}/>
                     </NavLink>
 
-                    <NavLink to={"/login"} >
-                        <FaUser size={26} />
-                    </NavLink>
+                    {/* User Login */}
+                    <div className={"flex items-center gap-3 cursor-pointer group relative"}>
+                        <NavLink to={"/login"}>
+                            <FaUser size={26}/>
+                            <div
+                                className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
+                                <div className={"min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-3"}>
+                                    <p className={"hover:text-gray-900 cursor-pointer"}>
+                                        <NavLink to={"/profile"}>
+                                            Profile
+                                        </NavLink>
+                                    </p>
+                                    <p className={"hover:text-gray-900 cursor-pointer"}>
+                                        <NavLink to={"/logout"}>
+                                            Log out
+                                        </NavLink>
 
-        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </NavLink>
+                    </div>
+
+                    {/* Admin Login */}
+                    <div className={"flex items-center gap-3 cursor-pointer group relative"}>
+                        <NavLink to={"/admin"}>
+                            <RiAdminLine size={26}/>
+                            <div
+                                className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
+                                <div className={"min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-3"}>
+                                    <p className={"hover:text-gray-900 cursor-pointer"}
+                                      >
+                                        <NavLink to={"/admin/orderlists"} >
+                                            Orders
+                                        </NavLink>
+
+                                    </p>
+                                    <p className={"hover:text-gray-900 cursor-pointer"}
+                                       >
+                                        <NavLink to={"/admin/productlists"}>
+                                            Products
+                                        </NavLink>
+                                    </p>
+                                    <p className={"hover:text-gray-900 cursor-pointer"}
+                                       >
+                                        <NavLink to={"/admin/userlists"}>
+                                            Users
+                                        </NavLink>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </NavLink>
+                    </div>
+                </div>
             </div>
+            </header>
         </>
 
     )
