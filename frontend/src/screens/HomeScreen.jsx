@@ -1,19 +1,18 @@
 import React from 'react';
 import HeroHeader from "../components/HeroHeader";
-import PromoProduct from "../components/PromoProduct";
+import Footer from "../components/Footer";
+
 
 
 export default function HomeScreen() {
     return (
         <>
-            <section>
-                <HeroHeader />
+            <main className={"relative"} >
+                <section className={"xl:p-1"}>
+                    <HeroHeader />
+                </section>
 
-            </section>
-
-
-
-
+            </main>
 
         </>
     )

@@ -2,6 +2,8 @@ import React from "react";
 import {assets} from "../assets/assets";
 import PromoProduct from "./PromoProduct";
 
+
+
 export default function HeroHeader() {
 
     return (
@@ -39,10 +41,11 @@ export default function HeroHeader() {
                         </div>
                     </div>
                 </div>
+                <section>
+                    <PromoProduct />
+                </section>
 
-                <PromoProduct />
             </section>
-
 
         </>
     )
