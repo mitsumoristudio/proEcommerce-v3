@@ -1,6 +1,13 @@
 import Ratings from "./Ratings";
+import {StarIcon} from "@heroicons/react/20/solid";
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
+
 
 export default function ProductCard({products}) {
+
     return (
         <div className="-mx-px grid grid-cols-2 border-spacing-1 border-gray-200 sm: mx-0 md: grid-cols-3 lg: grid-cols-4">
             {products.map((product)=> (
@@ -11,7 +18,7 @@ export default function ProductCard({products}) {
                         className={"aspect-square rounded-lg bg-gray-200 object-cover group-hover:opacity-80"}
                     />
 
-                    <div className={"pb-4 pt-10 text-center"}>
+                    <div className={"pt-10 text-center"}>
                         <h3 className={"text-sm font-medium text-gray-800"}>
                             <a href={`/product/${product._id}`}>
                                 <span aria-hidden={"true"} className="absolute inset-0"/>
@@ -21,13 +28,26 @@ export default function ProductCard({products}) {
                         <h2 className={"font-medium text-gray-600"}>
                             {product.brand}
                         </h2>
-                        <div className={"flex flex-col mt-3 items-center"}>
+                        <div className={"flex justify-center mb-2 "}>
                             <p className={"sr-only"}>{product.rating} out of 5 starts</p>
-                            <div className={"flex items-center"}>
-                                <Ratings value={product.rating} text={`${product.numReviews} reviews`} />
-                            </div>
+
+                            {/*<Ratings value={product.rating} text={`${product.numReviews} reviews`} />*/}
                         </div>
-                        <p className={"mt-4 text-base font-medium text-gray-800"}>{product.price}</p>
+                        <div className="flex items-center justify-center mb-1">
+                            {[0, 1, 2, 3, 4].map((rating) => (
+                                <StarIcon
+                                    key={rating}
+                                    aria-hidden="true"
+                                    className={classNames(
+                                        product.rating > rating ? 'text-yellow-400' : 'text-gray-300',
+                                        'size-5 shrink-0',
+                                    )}
+                                />
+                            ))}
+                        </div>
+                        <p className={"font-light"}>{product.numReviews} review</p>
+
+                        <p className={"mt-4 text-base font-medium text-gray-800"}>${product.price}</p>
                     </div>
                 </div>
             ))}

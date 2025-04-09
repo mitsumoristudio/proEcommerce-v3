@@ -1,4 +1,4 @@
-import {assets} from "../assets";
+import {assets, swiperAssets} from "../assets";
 
 const mockProducts = [
     {
@@ -84,6 +84,35 @@ const mockProducts = [
         rating: 4.2,
         numReviews: 8,
     },
+]
 
+export default mockProducts;
+
+const mockBrands = [
+    {
+         _id: "1",
+        "title": "Brand 1",
+        "image": swiperAssets.brand_1
+    },
+    {
+        _id: "2",
+        "title": "Brand 2",
+        "image": swiperAssets.brand_2
+    },
+    {
+        _id: "3",
+        "title": "Brand 3",
+        "image": swiperAssets.brand_3
+    },
+    {
+        _id: "4",
+        "title": "Brand 4",
+        "image": swiperAssets.brand_4
+    },
+    {
+        _id: "5",
+        "title": "Brand 5",
+        "image": swiperAssets.brand_5
+    },
 
 ]

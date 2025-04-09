@@ -5,6 +5,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {FaShoppingCart, FaUser, FaFlagUsa} from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import SearchBar from "./SearchBar";
+import CartPopOver from "./CartPopOver";
 
 
 export default function TopNavBar() {
@@ -23,7 +24,7 @@ export default function TopNavBar() {
                      className={"size-11 cursor-pointer justify-center mb-1"}
                      src={assets.admin_logo}/>
                     <div className={" flex gap-2 px-2 mb-1"}>
-                <FaFlagUsa size={26} />
+                <FaFlagUsa size={22} />
                 <h2>USD</h2>
                 </div>
                     </div>
@@ -55,9 +56,17 @@ export default function TopNavBar() {
                 <div className={"flex items-center gap-6 px-4"}>
                     <SearchBar/>
 
-                    <NavLink to={"/cart"}>
-                        <FaShoppingCart size={26}/>
-                    </NavLink>
+                    {/*<NavLink to={"/carts"}>*/}
+                    {/*    <FaShoppingCart size={26}/>*/}
+                    {/*</NavLink>*/}
+                    <div className={"flex items-center gap-3 cursor-pointer group relative "}>
+                        <NavLink to={"/carts"}>
+                            <FaShoppingCart size={26} />
+                            <div className={"absolute top-0 right-0 pt-12 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
+                                <CartPopOver/>
+                            </div>
+                        </NavLink>
+                    </div>
 
                     {/* User Login */}
                     <div className={"flex items-center gap-3 cursor-pointer group relative"}>
@@ -75,8 +84,8 @@ export default function TopNavBar() {
                                         <NavLink to={"/logout"}>
                                             Log out
                                         </NavLink>
-
                                     </p>
+
                                 </div>
                             </div>
                         </NavLink>

@@ -10,8 +10,15 @@ import paypal from "../assets/paypal.svg"
 import visa from "../assets/visa.svg"
 import western_union from "../assets/western_union.svg"
 import booth_table from "../assets/booth_table.jpg"
-import modern_bedroom from "../assets/booth_table.jpg"
+import modern_bedroom from "../assets/modern_bedroom.jpg"
 import single_double_beds from "../assets/single_double_beds.jpg"
+import brand_1 from "../assets/swiperbrands/brand_1.svg"
+import brand_2 from "../assets/swiperbrands/brand_2.svg"
+import brand_3 from "../assets/swiperbrands/brand_3.svg"
+import brand_4 from "../assets/swiperbrands/brand_4.svg"
+import brand_5 from "../assets/swiperbrands/brand_5.svg"
+import brand_6 from "../assets/swiperbrands/brand_6.svg"
+
 
 export const assets = {
     admin_logo,
@@ -28,5 +35,14 @@ export const assets = {
     modern_bedroom,
     single_double_beds,
 
+}
+
+export const swiperAssets = {
+    brand_1,
+    brand_2,
+    brand_3,
+    brand_4,
+    brand_5,
+    brand_6
 
 }

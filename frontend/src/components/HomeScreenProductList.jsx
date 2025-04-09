@@ -53,7 +53,7 @@ export default function HomeScreenProductList() {
                         <img alt={product.imageAlt} src={product.imageSrc} className="size-full object-cover"/>
                     </div>
                     <h3 className="mt-4 text-sm text-gray-700">
-                        <a href={"/shopping"}>
+                        <a href={"/product"}>
                             <span className="absolute inset-0"/>
                             {product.name}
                         </a>

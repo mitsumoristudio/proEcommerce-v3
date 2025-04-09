@@ -4,8 +4,8 @@ import {FaStar, FaStarHalfAlt, FaRegStar} from "react-icons/fa";
 
 export default function Ratings({value, text}) {
     return (
-        <div className={'rating'}>
-            <span>
+        <div className={'flex flex-col items-center '}>
+            <span >
                 {value >= 1 ? (
                     <FaStar />
                 ) : value >= 0.5 ? (
@@ -58,3 +58,4 @@ export default function Ratings({value, text}) {
         </div>
     )
 }
+
