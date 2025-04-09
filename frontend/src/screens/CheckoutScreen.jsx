@@ -2,10 +2,72 @@
 import React, {useState} from "react";
 import {Radio, RadioGroup} from "@headlessui/react";
 import { ChevronDownIcon, CheckCircleIcon } from '@heroicons/react/16/solid'
+import {assets} from "../assets/assets";
+
 
 const mockdeliveryOptions = [
     { id: 1, shipping:"Standard", turnaround: "3-10 business days", price:"$6.00"},
     { id: 2, shipping:"Express", turnaround: "3-5 business days", price:"$18.00"},
+]
+
+const mockShopping = [
+    {
+        _id: '1',
+        name: 'Wooden Designer Chair',
+        image: assets.chair1,
+        description:
+            'Contemporary wooden chair. Designed in Japan',
+        brand: 'DWR',
+        category: 'Furniture',
+        price: 489.99,
+        countInStock: 12,
+        rating: 4.5,
+        numReviews: 38,
+    },
+    {
+        _id: '2',
+        name: 'Grey Comfortable Arm Chair',
+        image: assets.grey_comportable_armchair,
+        description:
+            'The Emmy speaks to multiple generations,” says Beamer. “Youthful yet mature, it resonates with a sense of modernism' +
+            ' and tradition. It’s a place to feel at home.” Made in U.S.A.',
+        brand: 'Emma Chair',
+        category: 'Furniture',
+        price: 599.99,
+        countInStock: 7,
+        rating: 4.0,
+        numReviews: 40,
+    },
+    {
+        _id: '3',
+        name: 'Grey Lounge Sofa',
+        image: assets.grey_sofa_isolated,
+        description:
+            'Charles and Ray Eames had ideas about making a better world, one in which things were designed to ' +
+            'fulfill the practical needs of ordinary people and bring greater pleasure to our lives. Their Soft Pad ' +
+            'Collection (1969) of luxuriously padded chairs evolved from their Aluminum Group Collection. With the addition ' +
+            'of plush 2” thick cushions, the Soft Pad Collection retains the style of the earlier one but adds ' +
+            'significant comfort. Backed by a 12-year manufacturer’s warranty.',
+        brand: 'Emma Chair',
+        category: 'Furniture',
+        price: 3299.99,
+        countInStock: 3,
+        rating: 2.0,
+        numReviews: 50,
+    },
+    {
+        _id: '4',
+        name: 'Modern Bedrooms',
+        image: assets.modern_bedroom,
+        description:
+            'Modern bedroom developed for creature comfort. Designed in Japan',
+        brand: 'Herman Miller',
+        category: 'Furniture',
+        price: 1299.99,
+        countInStock:22,
+        rating: 4.0,
+        numReviews: 10,
+    },
 ]
 
 export default function CheckoutScreen() {
@@ -20,6 +82,7 @@ export default function CheckoutScreen() {
                 <form className={"lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"}>
 
                     <div className={"mt-10 border-t border-gray-300 pt-10"}>
+
                         <h2 className={"text-xl font-medium text-gray-800"}>Shipping Information</h2>
 
                         {/* Shipping form input First Name, Last Name, Address, Phone, ZipCode Country*/}
@@ -213,9 +276,93 @@ export default function CheckoutScreen() {
 
                             </fieldset>
                         </div>
+                        </div>
 
+                    {/* Order Summary*/}
+                    <div className={"mb-4 lg:mb-4"}>
+                        <h2 className={"text-3xl font-semibold"}>Order Summary</h2>
+
+                        <div className={"mt-10 border-t border-gray-300 pt-10"}></div>
+
+                        <div className={"mt-3 rounded-lg border border-gray-300 bg-white shadow-sm"}>
+                            <h3 className={"sr-only"}>Items in your cart</h3>
+                            <ul role={"list"} className={"divide-y divide-gray-300"}>
+                                {mockShopping.map((items) => {
+                                    return (
+                                        <li key={items._id}
+                                        className={"flex px-4 py-5 sm:px-5"}>
+                                            <div className={"shrink-0"}>
+                                                <img alt={items.name} src={items.image}
+                                                className={"size-20 rounded-lg shadow-sm opacity-90 border border-b border-gray-100"}/>
+                                            </div>
+
+                                            <div className={"flex flex-1 flex-col ml-4"}>
+                                                <div className={"flex"}>
+                                                    <div className={"min-w-0 flex-1"}>
+                                                        <h4 className={"text-base font-medium text-gray-700"}>
+                                                            {items.name}
+                                                        </h4>
+
+                                                        <p className={"text-sm text-gray-500 mt-2"}>{items.brand}</p>
+                                                        <p className={"text-sm text-gray-800 mt-2 font-semibold"}>${items.price}</p>
+                                                    </div>
+
+                                                    <div className={"ml-5"}>
+                                                        <div className={"grid grid-cols-1"}>
+                                                            {/* Add Quantity Later */}
+                                                            <h4>Quantity: {items.countInStock}</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+
+                            {/* Shipping Summary - Subtotal, Shipping, Taxes, Total */}
+                            <dl className={"space-y-6 border-t border-gray-300 px-4 py-6 sm:px-6"}>
+                                <div className={"flex items-center justify-between"}>
+                                    <dt className={"text-sm"}>Subtotal</dt>
+                                    <dd className={"text-sm text-gray-800 font-medium"}>$120.00</dd>
+                                </div>
+
+                                <div className={"flex items-center justify-between"}>
+                                    <dt className={"text-sm"}>Shipping</dt>
+                                    <dd className={"text-sm text-gray-800 font-medium"}>$6.00</dd>
+                                </div>
+
+                                <div className={"flex items-center justify-between"}>
+                                    <dt className={"text-sm"}>Taxes</dt>
+                                    <dd className={"text-sm text-gray-800 font-medium"}>$20.00</dd>
+                                </div>
+
+                                <div className={" border-t border-gray-300 pb-2"}></div>
+
+                                    <div className={"flex items-center justify-between"}>
+
+                                        <dt className={"text-lg text-gray-800 font-bold"}>Total</dt>
+                                        <dd className={"text-lg text-gray-800 font-bold"}>$146.00</dd>
+                                    </div>
+                            </dl>
+
+                            <div className={"border-t border-gray-300 py-6 px-4 sm:px-6"}>
+                                <button
+                                    type="submit"
+                                    className="w-full rounded-lg border border-transparent bg-blue-500 opacity-80 px-4 py-3
+                                    text-base font-medium text-white shadow-sm hover:scale-105 transition-all duration-500 focus:outline-none focus:ring-2
+                                    focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50 "
+                                >
+                                    Confirm Purchase
+                                </button>
+                            </div>
 
                         </div>
+
+
+                    </div>
                 </form>
             </div>
 
