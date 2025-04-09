@@ -216,7 +216,7 @@ export default function ProductScreen() {
                                             <p className="relative text-lg font-semibold text-white">{product.price}</p>
                                         </div>
                                     </div>
-                                    <div className="mt-6">
+                                    <div className="mt-6 cursor-pointer ">
                                         <a
                                             href={product.href}
                                             className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"

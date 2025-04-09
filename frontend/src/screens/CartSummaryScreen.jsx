@@ -197,7 +197,7 @@ export default function CartSummaryScreen() {
                                     type="submit"
                                     className="w-full rounded-lg border border-transparent bg-blue-500 opacity-80 px-4 py-3
                                     text-base font-medium text-white shadow-sm hover:bg-blue-900 focus:outline-none focus:ring-2
-                                    focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                                    focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50 "
                                 >
                                     Checkout
                                 </button>

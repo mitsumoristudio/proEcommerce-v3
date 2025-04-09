@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import ShoppingScreen from "./screens/ShoppingScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartSummaryScreen from "./screens/CartSummaryScreen";
+import CheckoutScreen from "./screens/CheckoutScreen";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
               <Route path={"/product"} index={true} element={<ShoppingScreen/>} />
               <Route path={"/product/:id"} element={<ProductScreen />} />
               <Route path={"/cart"} element={<CartSummaryScreen />} />
+              <Route path={"/checkout"} element={<CheckoutScreen />} />
 
           </Routes>
 

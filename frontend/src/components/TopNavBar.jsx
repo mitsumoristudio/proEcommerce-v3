@@ -36,7 +36,7 @@ export default function TopNavBar() {
                         <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                     </NavLink>
 
-                    <NavLink to={"/store"}>
+                    <NavLink to={"/product"}>
                         <li className={"py-2 md: text-md lg: text-lg xl: text-xl"}>STORE</li>
                         <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                     </NavLink>
