@@ -8,6 +8,7 @@ import ShoppingScreen from "./screens/ShoppingScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartSummaryScreen from "./screens/CartSummaryScreen";
 import CheckoutScreen from "./screens/CheckoutScreen";
+import OrderSummaryScreen from "./screens/OrderSummaryScreen";
 
 export default function App() {
   return (
@@ -23,6 +24,8 @@ export default function App() {
               <Route path={"/product/:id"} element={<ProductScreen />} />
               <Route path={"/cart"} element={<CartSummaryScreen />} />
               <Route path={"/checkout"} element={<CheckoutScreen />} />
+              <Route path={"/summary"} element={<OrderSummaryScreen />} />
+
 
           </Routes>
 
