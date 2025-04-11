@@ -2,6 +2,7 @@
 import {StarIcon} from "@heroicons/react/20/solid";
 import React from "react";
 import {assets} from "../assets/assets";
+import {Link} from "react-router-dom";
 
 const reviews = {
     average: 4,
@@ -106,7 +107,8 @@ export default function ProductReview() {
                                     text-base font-medium text-white shadow-sm hover:scale-105 transition-all duration-500 focus:outline-none focus:ring-2
                                     focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50 "
                             >
-                                Write a review
+                                <Link to={"/reviews"}> Write a review </Link>
+
                             </button>
                         </div>
                     </div>

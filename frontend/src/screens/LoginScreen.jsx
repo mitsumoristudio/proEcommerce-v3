@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 
 export default function LoginScreen() {
 
@@ -19,13 +20,15 @@ export default function LoginScreen() {
                     <div className={'w-full '}>
                         <p className={"mb-2 text-lg font-semibold"}>Email</p>
                         <input className={'border border-zinc-700 rounded-lg w-full p-2 pt-1'}
-                               placeholder={"Enter your email"} type={'email'} value={email} required={true}/>
+                               placeholder={"Enter your email"} type={'email'} value={email} required={true}
+                        onChange={(e) => setEmail(e.target.value)}/>
                     </div>
 
                     <div className={'w-full'}>
                         <p className={"mb-2 text-lg font-semibold"}>Password</p>
                         <input className={'border border-zinc-700 rounded-lg w-full p-2 pt-1'}
-                               placeholder={"Enter your password"} type={'password'} value={password} required={true}/>
+                               placeholder={"Enter your password"} type={'password'} value={password} required={true}
+                        onChange={(e) => setPassword(e.target.value)}/>
                     </div>
 
                     <button
@@ -39,7 +42,8 @@ export default function LoginScreen() {
                     <p className={"text-gray-800 w-full items-center ml-12"}>Create a new account
                         <span>  </span>
                         <span className={"text-indigo-700 font-semibold underline cursor-pointer"}>
-                              Click here
+                            <Link to={"/register"}> Click here </Link>
+
                         </span></p>
                     </div>
 

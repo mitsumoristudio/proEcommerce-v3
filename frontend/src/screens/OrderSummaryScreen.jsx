@@ -61,7 +61,6 @@ const mockShopping = [
     },
 ]
 
-
 export default function OrderSummaryScreen() {
     return (
         <>
