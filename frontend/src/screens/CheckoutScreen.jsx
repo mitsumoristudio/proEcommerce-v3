@@ -351,7 +351,7 @@ export default function CheckoutScreen() {
                             <div className={"border-t border-gray-300 py-6 px-4 sm:px-6"}>
                                 <button
                                     type="submit"
-                                    className="w-full rounded-lg border border-transparent bg-blue-500 opacity-80 px-4 py-3
+                                    className="w-72 rounded-lg border border-transparent bg-blue-500 opacity-80 px-4 py-3
                                     text-base font-medium text-white shadow-sm hover:scale-105 transition-all duration-500 focus:outline-none focus:ring-2
                                     focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50 "
                                 >

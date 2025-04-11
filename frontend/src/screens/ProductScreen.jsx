@@ -2,26 +2,12 @@
 import React from 'react';
 import mockProducts from "../assets/mockdata/mockProducts";
 import {useParams} from "react-router-dom";
+import ProductReview from "../components/ProductReview";
 
-import {
-
-    Disclosure,
-    DisclosureButton,
-    DisclosurePanel,
-    Radio,
-    RadioGroup,
-    Tab,
-    TabGroup,
-    TabList,
-    TabPanel,
-    TabPanels,
-} from '@headlessui/react'
 import {
     HeartIcon,
-    MinusIcon,
-    PlusIcon,
-
 } from '@heroicons/react/24/outline'
+
 import { StarIcon } from '@heroicons/react/20/solid'
 import {ChevronDownIcon} from "@heroicons/react/16/solid";
 
@@ -70,13 +56,9 @@ const relatedProducts = [
     // More products...
 ]
 
-
 export default function ProductScreen() {
     const {id: productId} = useParams();
     const product = mockProducts.find((product) => product._id === productId);
-
-    const [selectedColor, setSelectedColor] = React.useState("");
-
 
     return (
         <section>
@@ -88,7 +70,6 @@ export default function ProductScreen() {
                             <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
                                 <img alt={product.name} src={product.image} className={"h-full w-full mb-2 rounded-lg shadow-md border border-b"} />
                             </div>
-
 
 
                         {/* Product info */}
@@ -227,6 +208,12 @@ export default function ProductScreen() {
                                 </div>
                             ))}
                         </div>
+                    </section>
+
+                    <section className={"border-t border-gray-200 px-1 py-2 sm:px-0"}>
+                        <>
+                            <ProductReview />
+                        </>
                     </section>
                 </div>
             </main>

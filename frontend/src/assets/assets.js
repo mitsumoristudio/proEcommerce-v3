@@ -18,6 +18,7 @@ import brand_3 from "../assets/swiperbrands/brand_3.svg"
 import brand_4 from "../assets/swiperbrands/brand_4.svg"
 import brand_5 from "../assets/swiperbrands/brand_5.svg"
 import brand_6 from "../assets/swiperbrands/brand_6.svg"
+import miaphoto from "../assets/miaphoto.jpeg"
 
 
 export const assets = {
@@ -34,6 +35,7 @@ export const assets = {
     booth_table,
     modern_bedroom,
     single_double_beds,
+    miaphoto,
 
 }
 
