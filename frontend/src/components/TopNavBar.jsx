@@ -107,13 +107,13 @@ export default function TopNavBar() {
                                     </p>
                                     <p className={"hover:text-gray-900 cursor-pointer"}
                                        >
-                                        <NavLink to={"/admin/productlists"}>
+                                        <NavLink to={"/admin/producttable"}>
                                             Products
                                         </NavLink>
                                     </p>
                                     <p className={"hover:text-gray-900 cursor-pointer"}
                                        >
-                                        <NavLink to={"/admin/userlists"}>
+                                        <NavLink to={"/admin/usertable"}>
                                             Users
                                         </NavLink>
 
