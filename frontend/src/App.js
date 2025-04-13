@@ -14,6 +14,7 @@ import AddReviewScreen from "./screens/AddReviewScreen";
 import AddProductScreen from "./screens/adminScreen/AddProductScreen";
 import UserTableScreen from "./screens/adminScreen/UserTableScreen";
 import ProductTableScreen from "./screens/adminScreen/ProductTableScreen";
+import OrderTableScreen from "./screens/adminScreen/OrderTableScreen";
 
 export default function App() {
   return (
@@ -25,19 +26,21 @@ export default function App() {
 
           <Routes>
               <Route path={"/"} index={true} element={<HomeScreen />} />
+              <Route path={"/register"} element={<RegisterScreen />} />
+              <Route path={"/login"} element={<LoginScreen />} />
+
               <Route path={"/product"} index={true} element={<ShoppingScreen/>} />
               <Route path={"/product/:id"} element={<ProductScreen />} />
               <Route path={"/cart"} element={<CartSummaryScreen />} />
               <Route path={"/checkout"} element={<CheckoutScreen />} />
               <Route path={"/summary"} element={<OrderSummaryScreen />} />
-              <Route path={"/login"} element={<LoginScreen />} />
-              <Route path={"/register"} element={<RegisterScreen />} />
+
+
               <Route path={"/reviews"} element={<AddReviewScreen />} />
               <Route path={"/product/addProduct"} element={<AddProductScreen />} />
               <Route path={"/admin/usertable"} element={<UserTableScreen />} />
               <Route path={"/admin/producttable"} element={<ProductTableScreen />} />
-
-
+              <Route path={"/admin/ordertable"} element={<OrderTableScreen />} />
 
           </Routes>
 

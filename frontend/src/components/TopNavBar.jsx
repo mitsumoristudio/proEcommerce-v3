@@ -1,17 +1,34 @@
 import React from "react";
-import {useState, useEffect} from "react";
 import {assets} from "../assets/assets";
+import {useSelector, useDispatch } from "react-redux";
+import {logout} from "../features/slices/authSlice";
 import {NavLink, useNavigate} from "react-router-dom";
 import {FaShoppingCart, FaUser, FaFlagUsa} from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import SearchBar from "./SearchBar";
 import CartPopOver from "./CartPopOver";
+import {useLogoutMutation} from "../features/slices/userApiSlice";
 
 
 export default function TopNavBar() {
 
+    const {userInfo} = useSelector((state) => state.auth);
+
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [showMenu, setShowMenu] = React.useState(false);
+
+    const [logoutApiCall] = useLogoutMutation();
+
+    const logoutHandler = async () => {
+        try {
+            await logoutApiCall().unwrap()
+            dispatch(logout())
+            navigate("/login")
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -32,22 +49,22 @@ export default function TopNavBar() {
                 {/* NavBar TabView HOME STORE CONTACT ABOUT */}
                 <ul className={"hidden md:flex items-start gap-6 font-medium justify-start"}>
                     <NavLink to={"/"}>
-                        <li className={"py-2 md: text-md lg: text-lg xl: text-xl"}>HOME</li>
-                        <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
+                        <li className={"py-2 md: text-md lg: text-lg xl: text-xl hover:text-blue-500"}>HOME</li>
+                        <hr className={'border-b outline-none h-0.5 w-3/5 m-auto hidden '}/>
                     </NavLink>
 
                     <NavLink to={"/product"}>
-                        <li className={"py-2 md: text-md lg: text-lg xl: text-xl"}>STORE</li>
+                        <li className={"py-2 md: text-md lg: text-lg xl: text-xl hover:text-blue-500"}>STORE</li>
                         <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                     </NavLink>
 
                     <NavLink to={"/contact"}>
-                        <li className={"py-2 md: text-md lg: text-lg xl: text-xl"}>CONTACT</li>
+                        <li className={"py-2 md: text-md lg: text-lg xl: text-xl hover:text-blue-500"}>CONTACT</li>
                         <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                     </NavLink>
 
                     <NavLink to={"/about"}>
-                        <li className={"py-2 md: text-md lg: text-lg xl: text-xl"}>ABOUT</li>
+                        <li className={"py-2 md: text-md lg: text-lg xl: text-xl hover:text-blue-500"}>ABOUT</li>
                         <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                     </NavLink>
                 </ul>
@@ -68,60 +85,68 @@ export default function TopNavBar() {
                         </NavLink>
                     </div>
 
-                    {/* User Login */}
-                    <div className={"flex items-center gap-3 cursor-pointer group relative"}>
+                    {userInfo ? (
+                        <div className={"flex items-center gap-3 cursor-pointer group relative"}>
+
+                                <div
+                                    className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
+                                    <div className={"min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-3"}>
+                                        <p className={"hover:text-gray-900 cursor-pointer"}>
+                                            <NavLink to={"/admin/profile"}>
+                                                Profile
+                                            </NavLink>
+                                        </p>
+                                        <p className={"hover:text-gray-900 cursor-pointer"}>
+                                            <NavLink to={"/logout"}
+                                                     onClick={logoutHandler}>
+                                                Log out
+                                            </NavLink>
+                                        </p>
+
+                                    </div>
+                                </div>
+
+                        </div>
+
+                    ) : (
                         <NavLink to={"/login"}>
-                            <FaUser size={26}/>
-                            <div
-                                className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
-                                <div className={"min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-3"}>
-                                    <p className={"hover:text-gray-900 cursor-pointer"}>
-                                        <NavLink to={"/profile"}>
-                                            Profile
-                                        </NavLink>
-                                    </p>
-                                    <p className={"hover:text-gray-900 cursor-pointer"}>
-                                        <NavLink to={"/logout"}>
-                                            Log out
-                                        </NavLink>
-                                    </p>
-
-                                </div>
-                            </div>
+                    <FaUser size={26}/>
                         </NavLink>
-                    </div>
+                    )}
+                    {/* User Login */}
+                    {userInfo && userInfo.isAdmin && (
+                        <div className={"flex items-center gap-3 cursor-pointer group relative"}>
+                            <NavLink to={"/admin"}>
+                                <RiAdminLine size={26}/>
+                                <div
+                                    className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
+                                    <div className={"min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-3"}>
+                                        <p className={"hover:text-blue-500 cursor-pointer"}
+                                        >
+                                            <NavLink to={"/admin/ordertable"}>
+                                                Orders
+                                            </NavLink>
 
+                                        </p>
+                                        <p className={"hover:text-blue-500  cursor-pointer"}
+                                        >
+                                            <NavLink to={"/admin/producttable"}>
+                                                Products
+                                            </NavLink>
+                                        </p>
+                                        <p className={"hover:text-blue-500  cursor-pointer"}
+                                        >
+                                            <NavLink to={"/admin/usertable"}>
+                                                Users
+                                            </NavLink>
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </NavLink>
+                        </div>
+                    )}
                     {/* Admin Login */}
-                    <div className={"flex items-center gap-3 cursor-pointer group relative"}>
-                        <NavLink to={"/admin"}>
-                            <RiAdminLine size={26}/>
-                            <div
-                                className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
-                                <div className={"min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-3"}>
-                                    <p className={"hover:text-gray-900 cursor-pointer"}
-                                      >
-                                        <NavLink to={"/admin/orderlists"} >
-                                            Orders
-                                        </NavLink>
-
-                                    </p>
-                                    <p className={"hover:text-gray-900 cursor-pointer"}
-                                       >
-                                        <NavLink to={"/admin/producttable"}>
-                                            Products
-                                        </NavLink>
-                                    </p>
-                                    <p className={"hover:text-gray-900 cursor-pointer"}
-                                       >
-                                        <NavLink to={"/admin/usertable"}>
-                                            Users
-                                        </NavLink>
-
-                                    </p>
-                                </div>
-                            </div>
-                        </NavLink>
-                    </div>
                 </div>
             </div>
             </header>

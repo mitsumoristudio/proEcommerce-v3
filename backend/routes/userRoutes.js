@@ -7,7 +7,8 @@ deleteUser, getUserDetails, updateUser} from "../controllers/userController.js";
 const router = express.Router();
 
 router.route("/").post(registerUser);
-router.route("/").get(protectRoute, admin, getAllUsers);
+// router.route("/").get(protectRoute, admin, getAllUsers);
+router.route("/").get(protectRoute, getAllUsers);
 router.post("/logout", logoutUser);
 router.post("/login", authUser);
 

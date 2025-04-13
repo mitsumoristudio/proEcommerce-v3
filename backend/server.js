@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import {notFound, errorHandler} from "./middleware/errorHandler.js";
 import connectToMongodb from "./config/mongoosedb.js";
-import userRoutes from "./routes/userRoutes.js";
+import userRoutes from "../backend/routes/userRoutes.js";
 
 dotenv.config();
 
@@ -27,10 +27,12 @@ app.get("/", (req, res) => {
     res.send("API is running...")
 })
 
+// App route for login user, register user
+app.use("/api/users", userRoutes);
+
 // Error Handler
 app.use(notFound);
 app.use(errorHandler);
 
-app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
