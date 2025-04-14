@@ -8,12 +8,12 @@ import {generateToken} from "../config/generateToken.js";
 // @route   POST /api/users/login
 // @access  Public
 export const authUser = asyncHandler(async (req, res) => {
-    const {email, password} = req.body
+    const {email, password} = req.body;
 
     const user = await UserModels.findOne({email : email});
 
     if (user && (await user.matchPassword(password))) {
-        const createToken = jwt.sign({userId: user._id}, process.env.JWT_SECRET_TOKEN, {
+        const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET_TOKEN, {
             expiresIn: '30d'
         });
 
