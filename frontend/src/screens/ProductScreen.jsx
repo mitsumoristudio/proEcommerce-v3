@@ -4,12 +4,12 @@ import mockProducts from "../assets/mockdata/mockProducts";
 import {useParams} from "react-router-dom";
 import ProductReview from "../components/ProductReview";
 
-import {
-    HeartIcon,
-} from '@heroicons/react/24/outline'
+import {HeartIcon } from '@heroicons/react/24/outline'
 
 import { StarIcon } from '@heroicons/react/20/solid'
 import {ChevronDownIcon} from "@heroicons/react/16/solid";
+import {useGetAllProductsQuery} from "../features/slices/productApiSlice";
+import CustomLoader from "../components/CustomLoader";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -58,7 +58,9 @@ const relatedProducts = [
 
 export default function ProductScreen() {
     const {id: productId} = useParams();
-    const product = mockProducts.find((product) => product._id === productId);
+    const {data: products, isLoading, isError} = useGetAllProductsQuery();
+
+    const product = products.find((product) => product._id === productId);
 
     return (
         <section>

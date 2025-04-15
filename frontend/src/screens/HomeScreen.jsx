@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroHeader from "../components/HeroHeader";
-
+import CustomLoader from "../components/CustomLoader";
 
 export default function HomeScreen() {
     return (

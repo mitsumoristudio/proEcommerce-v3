@@ -5,7 +5,6 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-
 export default function ProductCard({products}) {
 
     return (
@@ -20,12 +19,12 @@ export default function ProductCard({products}) {
 
                     <div className={"pt-10 text-center"}>
                         <h3 className={"text-sm font-medium text-gray-800"}>
-                            <a href={`/product/${product._id}`}>
+                            <a href={`/product/${product._id}`} key={product._id}>
                                 <span aria-hidden={"true"} className="absolute inset-0"/>
                                 {product.name}
                             </a>
                         </h3>
-                        <h2 className={"font-medium text-gray-600"}>
+                        <h2 className={"font-medium text-gray-600"} key={product._id}>
                             {product.brand}
                         </h2>
                         <div className={"flex justify-center mb-2 "}>
@@ -45,7 +44,7 @@ export default function ProductCard({products}) {
                                 />
                             ))}
                         </div>
-                        <p className={"font-light"}>{product.numReviews} review</p>
+                        <p className={"font-light"} key={product._id}>{product.numReviews} review</p>
 
                         <p className={"mt-4 text-base font-medium text-gray-800"}>${product.price}</p>
                     </div>

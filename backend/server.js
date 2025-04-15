@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import {notFound, errorHandler} from "./middleware/errorHandler.js";
 import connectToMongodb from "./config/mongoosedb.js";
 import userRoutes from "../backend/routes/userRoutes.js";
+import productRoutes from "../backend/routes/productRoutes.js";
 
 dotenv.config();
 
@@ -29,6 +30,10 @@ app.get("/", (req, res) => {
 
 // App route for login user, register user
 app.use("/api/users", userRoutes);
+
+// Products
+app.use("/api/products", productRoutes);
+
 
 // Error Handler
 app.use(notFound);

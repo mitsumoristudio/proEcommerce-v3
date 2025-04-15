@@ -2,8 +2,6 @@ import React from "react";
 import {assets} from "../assets/assets";
 import PromoProduct from "./PromoProduct";
 
-
-
 export default function HeroHeader() {
 
     return (

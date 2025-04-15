@@ -2,11 +2,11 @@
 const mockProducts = [
     {
       //  _id: '1',
-        name: 'Wooden Designer Chair',
-        image: "images/chair.jpg",
+        name: 'Wooden Cabinet',
+        image: "images/cabinet1.jpg",
         description:
-            'Contemporary wooden chair. Designed in Japan',
-        brand: 'DWR',
+            'Contemporary wooden cabinet. Designed in Japan',
+        brand: 'MUJI',
         category: 'Furniture',
         price: 489.99,
         countInStock: 12,
