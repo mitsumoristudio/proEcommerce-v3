@@ -1,10 +1,9 @@
-import {assets, swiperAssets} from "../assets";
 
 const mockProducts = [
     {
-        _id: '1',
+      //  _id: '1',
         name: 'Wooden Designer Chair',
-        image: assets.chair1,
+        image: "images/chair.jpg",
         description:
             'Contemporary wooden chair. Designed in Japan',
         brand: 'DWR',
@@ -15,9 +14,9 @@ const mockProducts = [
         numReviews: 38,
     },
     {
-        _id: '2',
+      //  _id: '2',
         name: 'Grey Comfortable Arm Chair',
-        image: assets.grey_comportable_armchair,
+        image: "images/grey_comfortable_armchair.jpg",
         description:
             'The Emmy speaks to multiple generations,” says Beamer. “Youthful yet mature, it resonates with a sense of modernism' +
             ' and tradition. It’s a place to feel at home.” Made in U.S.A.',
@@ -29,9 +28,9 @@ const mockProducts = [
         numReviews: 40,
     },
     {
-        _id: '3',
+      //  _id: '3',
         name: 'Grey Lounge Sofa',
-        image: assets.grey_sofa_isolated,
+        image: "images/grey_sofa_isolated.png",
         description:
             'Charles and Ray Eames had ideas about making a better world, one in which things were designed to ' +
             'fulfill the practical needs of ordinary people and bring greater pleasure to our lives. Their Soft Pad ' +
@@ -46,9 +45,9 @@ const mockProducts = [
         numReviews: 50,
     },
     {
-        _id: '4',
+     //   _id: '4',
         name: 'Modern Bedrooms',
-        image: assets.modern_bedroom,
+        image: "images/modern_bedroom.jpg",
         description:
             'Modern bedroom developed for creature comfort. Designed in Japan',
         brand: 'Herman Miller',
@@ -59,9 +58,9 @@ const mockProducts = [
         numReviews: 10,
     },
     {
-        _id: '5',
+     //   _id: '5',
         name: 'Single Double Beds',
-        image: assets.single_double_beds,
+        image: "images/single_double_beds.jpg",
         description:
             'Single and Double Beds with sense of ergonomics. Designed in Japan',
         brand: 'Herman Miller',
@@ -72,9 +71,9 @@ const mockProducts = [
         numReviews: 18,
     },
     {
-        _id: '6',
+      //  _id: '6',
         name: 'Boot & Tables',
-        image: assets.booth_table,
+        image: "images/booth_table.jpg",
         description:
             'Counter booth table and chair. Designed in Japan',
         brand: 'Herman Miller',
@@ -88,31 +87,3 @@ const mockProducts = [
 
 export default mockProducts;
 
-const mockBrands = [
-    {
-         _id: "1",
-        "title": "Brand 1",
-        "image": swiperAssets.brand_1
-    },
-    {
-        _id: "2",
-        "title": "Brand 2",
-        "image": swiperAssets.brand_2
-    },
-    {
-        _id: "3",
-        "title": "Brand 3",
-        "image": swiperAssets.brand_3
-    },
-    {
-        _id: "4",
-        "title": "Brand 4",
-        "image": swiperAssets.brand_4
-    },
-    {
-        _id: "5",
-        "title": "Brand 5",
-        "image": swiperAssets.brand_5
-    },
-
-]
