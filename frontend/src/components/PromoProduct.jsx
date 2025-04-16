@@ -1,7 +1,7 @@
 
 import React from "react";
 import {NavLink} from "react-router-dom";
-import HomeScreenProductList from "./HomeScreenProductList";
+import HomeScreenProductCard from "./HomeScreenProductCard";
 import ShippingFooter from "./ShippingFooter";
 import Footer from "./Footer";
 
@@ -22,7 +22,7 @@ export default function PromoProduct() {
                     <div className={"mx-auto max-w-3xl px-2 py-6 sm: px-6 sm: py-24 lg: max-w-6xl lg: px-8"}>
                         <div className={"md: flex md: items-center md: justify-between"}>
                             <h2 className={"text-2xl font-bold tracking-tight text-gray-800"}>Trending Products</h2>
-                            <NavLink to={"/product"}
+                            <NavLink to={"/products"}
                                      className={"hidden text-lg font-medium text-indigo-700 hover:text-blue-600 md:block"}>Shop
                                 the Collections
                                 <span aria-hidden={"true"}>&rarr;</span></NavLink>
@@ -32,7 +32,7 @@ export default function PromoProduct() {
                 </div>
             </section>
             <section className={"mx-auto gap-2"}>
-                <HomeScreenProductList/>
+                <HomeScreenProductCard/>
             </section>
 
             <section className={"mx-auto gap-1"}>

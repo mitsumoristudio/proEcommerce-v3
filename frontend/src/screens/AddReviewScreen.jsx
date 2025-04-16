@@ -58,7 +58,7 @@ export default function AddReviewScreen() {
                             Submit
                         </button>
 
-                        <Link to={"/product"}>
+                        <Link to={"/products"}>
                             <button
                                 type="cancel"
                                 className="flex max-w-xs  mt-2 flex-1 items-center justify-center rounded-lg border border-transparent bg-red-300 px-8 py-2 text-base font-medium text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"

@@ -29,8 +29,8 @@ export default function App() {
               <Route path={"/register"} element={<RegisterScreen />} />
               <Route path={"/login"} element={<LoginScreen />} />
 
-              <Route path={"/product"} index={true} element={<ShoppingScreen/>} />
-              <Route path={"/product/:id"} element={<ProductScreen />} />
+              <Route path={"/products"} index={true} element={<ShoppingScreen/>} />
+              <Route path={"/products/:id"} element={<ProductScreen />} />
               <Route path={"/cart"} element={<CartSummaryScreen />} />
               <Route path={"/checkout"} element={<CheckoutScreen />} />
               <Route path={"/summary"} element={<OrderSummaryScreen />} />

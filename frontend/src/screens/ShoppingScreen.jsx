@@ -26,7 +26,7 @@ export default function ShoppingScreen() {
                         ) : (
                             <>
                                 <ProductCard products={products}
-                                key={products.id}/>
+                                key={products._id}/>
                             </>
                         )}
 

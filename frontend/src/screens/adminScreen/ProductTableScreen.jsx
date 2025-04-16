@@ -3,20 +3,25 @@ import {useState, useEffect} from "react";
 import {motion} from "framer-motion";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
-import mockProducts from "../../assets/mockdata/mockProducts";
+// import mockProducts from "../../assets/mockdata/mockProducts";
 import {Link} from "react-router-dom";
+import {useGetAllProductsQuery} from "../../features/slices/productApiSlice";
+import CustomLoader from "../../components/CustomLoader";
 
 export default function ProductTableScreen() {
     const [searchTerm, setSearchTerm] = useState("");
-    const [filterProducts, setFilterProducts] = useState(mockProducts);
+  //  const [filterProducts, setFilterProducts] = useState(mockProducts);
+    const {data: products, isLoading, isError} = useGetAllProductsQuery();
+    const [filteredProducts, setFilteredProducts] = useState(products);
 
     const handleSearch = (e) => {
         const term = e.target.value.toLowerCase();
         setSearchTerm(term);
 
-        const filtered = mockProducts.filter((product) => product.name.toLowerCase().includes(term));
+        const filtered = products.filter((product) => product.name.toLowerCase().includes(term));
+               // const filtered = mockProducts.filter((product) => product.name.toLowerCase().includes(term));
 
-        setFilterProducts(filtered);
+        setFilteredProducts(filtered);
     }
 
     return (
@@ -79,7 +84,7 @@ export default function ProductTableScreen() {
                         </thead>
 
                         <tbody className='divide-y divide-gray-700'>
-                        {filterProducts.map((product) => (
+                        {filteredProducts.map((product) => (
                             <motion.tr
                                 key={product.id}
                                 initial={{opacity: 0}}
@@ -105,7 +110,7 @@ export default function ProductTableScreen() {
                                 </td>
 
                                 <td className='px-6 py-4 whitespace-nowrap'>
-                                    <div className='text-sm text-gray-300'>{product.price}</div>
+                                    <div className='text-sm text-gray-300'>${product.price}</div>
                                 </td>
 
                                 <td className='px-6 py-4 whitespace-nowrap'>
