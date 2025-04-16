@@ -1,15 +1,17 @@
 
 import React from 'react';
 // import mockProducts from "../assets/mockdata/mockProducts";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {useState} from "react";
+import {addToCart} from "../features/slices/cartSlice";
 import ProductReview from "../components/ProductReview";
-
 import {HeartIcon } from '@heroicons/react/24/outline'
-
 import { StarIcon } from '@heroicons/react/20/solid'
 import {ChevronDownIcon} from "@heroicons/react/16/solid";
 import {useGetProductDetailsByIdQuery} from "../features/slices/productApiSlice";
 import CustomLoader from "../components/CustomLoader";
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -60,6 +62,16 @@ export default function ProductScreen() {
     const {id: productId} = useParams();
     const {data: product, isLoading, error, refetch} = useGetProductDetailsByIdQuery(productId);
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [qty, setQty] = useState(1);
+
+    const addToCartHandler = () => {
+        dispatch(addToCart({...product, qty}));
+        navigate("/cart");
+    }
+
     // const product = products.find((product) => product._id === productId);
 
     return (
@@ -75,7 +87,7 @@ export default function ProductScreen() {
                         {/* Product */}
                         <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
                             {/* Image gallery Had to create a seperate folder products in public Frontend for the images to appear */}
-                            <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
+                            <div className="mx-auto mt-6 hidden w-96 max-w-2xl sm:block lg:max-w-none">
                                 <img alt={product.name} src={product.image} key={product._id}
                                      className={"max-h-96 w-full mb-2 rounded-lg shadow-md border border-b"}/>
                             </div>
@@ -113,6 +125,7 @@ export default function ProductScreen() {
                                     <select
 
                                         aria-label={`Quantity, ${product.name}`}
+                                        onChange={(e) => setQty(e.target.value)}
                                         className="col-start-1 row-start-1 appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                     >
                                         <option value={1}>1</option>
@@ -149,6 +162,7 @@ export default function ProductScreen() {
 
                                     <div className="mt-10 flex">
                                         <button
+                                            onClick={addToCartHandler}
                                             type="submit"
                                             className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                                         >
