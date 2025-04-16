@@ -10,6 +10,7 @@ import CartPopOver from "./CartPopOver";
 import {useLogoutMutation} from "../features/slices/userApiSlice";
 
 
+
 export default function TopNavBar() {
 
     const {userInfo} = useSelector((state) => state.auth);
@@ -18,6 +19,8 @@ export default function TopNavBar() {
     const navigate = useNavigate();
 
     const [logoutApiCall] = useLogoutMutation();
+
+    const {cartItems} = useSelector((state) => state.cartSlice);
 
     const logoutHandler = async () => {
         try {
@@ -79,6 +82,12 @@ export default function TopNavBar() {
                         <div className={"flex items-center gap-3 cursor-pointer group relative "}>
                             <NavLink to={"/carts"}>
                                 <FaShoppingCart size={26}/>
+                                {cartItems.length > 0 && (
+                                    <h3 className={"text-gray-800 font-semibold"} style={{marginLeft: "5px"}}>
+                                        {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                                    </h3>
+                                )}
+
                                 <div
                                     className={"absolute top-0 right-0 pt-12 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
                                     <CartPopOver/>
