@@ -67,6 +67,12 @@ export default function ProductScreen() {
 
     const [qty, setQty] = useState(1);
 
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const handleFavoriteHandler = () => {
+        setIsFavorite(!isFavorite);
+    }
+
     const addToCartHandler = () => {
         dispatch(addToCart({...product, qty}));
         navigate("/cart");
@@ -171,9 +177,11 @@ export default function ProductScreen() {
 
                                         <button
                                             type="button"
-                                            className="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+                                            onClick={handleFavoriteHandler}
+                                            className="p-4 rounded-full transition-all duration-400 hover:bg-red-100"
                                         >
-                                            <HeartIcon aria-hidden="true" className="size-6 shrink-0"/>
+                                            <HeartIcon aria-hidden="true"
+                                            className={`w-6 h-6 transition-colors duration-400 ${isFavorite ? "fill-red-600" : "stroke-gray-500"}`}/>
                                             <span className="sr-only">Add to favorites</span>
                                         </button>
                                     </div>

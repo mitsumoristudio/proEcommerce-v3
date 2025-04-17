@@ -23,9 +23,14 @@ export const orderSchema = new mongoose.Schema(
             },
         ],
         shippingAddress: {
+            firstName: {type: String, required: true},
+            lastName: {type: String, required: true},
+            company: {type: String, required: false},
             address: {type: String, required: true},
             city: {type: String, required: true},
-            postalCode: {type: String, required: false},
+            state: {type: String, required: true},
+            postalCode: {type: String, required: true},
+            phoneNumber: {type: String, required: false},
             country: {type: String, required: true},
         },
         paymentMethod: {

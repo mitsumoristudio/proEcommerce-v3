@@ -15,6 +15,8 @@ import AddProductScreen from "./screens/adminScreen/AddProductScreen";
 import UserTableScreen from "./screens/adminScreen/UserTableScreen";
 import ProductTableScreen from "./screens/adminScreen/ProductTableScreen";
 import OrderTableScreen from "./screens/adminScreen/OrderTableScreen";
+import PrivateRoute from "./components/PrivateRoute";
+import {AdminRoute} from "./components/AdminRoute";
 
 export default function App() {
   return (
@@ -31,17 +33,21 @@ export default function App() {
 
               <Route path={"/products"} index={true} element={<ShoppingScreen/>} />
               <Route path={"/products/:id"} element={<ProductScreen />} />
+
               <Route path={"/cart"} element={<CartSummaryScreen />} />
-              <Route path={"/checkout"} element={<CheckoutScreen />} />
-              <Route path={"/summary"} element={<OrderSummaryScreen />} />
 
+                <Route path={""} element={<PrivateRoute/>}>
+                    <Route path={"/checkout"} element={<CheckoutScreen />} />
+                    <Route path={"/summary"} element={<OrderSummaryScreen />} />
+                    <Route path={"/reviews"} element={<AddReviewScreen />} />
+                 </Route>
 
-              <Route path={"/reviews"} element={<AddReviewScreen />} />
-              <Route path={"/product/addProduct"} element={<AddProductScreen />} />
-              <Route path={"/admin/usertable"} element={<UserTableScreen />} />
-              <Route path={"/admin/producttable"} element={<ProductTableScreen />} />
-              <Route path={"/admin/ordertable"} element={<OrderTableScreen />} />
-
+              <Route path={""} element={<AdminRoute />}>
+                  <Route path={"/product/addProduct"} element={<AddProductScreen />} />
+                  <Route path={"/admin/usertable"} element={<UserTableScreen />} />
+                  <Route path={"/admin/producttable"} element={<ProductTableScreen />} />
+                  <Route path={"/admin/ordertable"} element={<OrderTableScreen />} />
+              </Route>
           </Routes>
 
       </Router>

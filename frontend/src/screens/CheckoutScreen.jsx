@@ -3,11 +3,13 @@ import React, {useState} from "react";
 import {Radio, RadioGroup} from "@headlessui/react";
 import { ChevronDownIcon, CheckCircleIcon } from '@heroicons/react/16/solid'
 import {assets} from "../assets/assets";
-
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {saveShippingAddress} from "../features/slices/cartSlice";
 
 const mockdeliveryOptions = [
-    { id: 1, shipping:"Standard", turnaround: "3-10 business days", price:"$6.00"},
-    { id: 2, shipping:"Express", turnaround: "3-5 business days", price:"$18.00"},
+    { id: 1, shipping:"Standard", turnaround: "3-10 business days", price:"Free of charge for over $100.00"},
+ //   { id: 2, shipping:"Express", turnaround: "3-5 business days", price:"$18.00"},
 ]
 
 const mockShopping = [
@@ -73,13 +75,46 @@ const mockShopping = [
 export default function CheckoutScreen() {
    const [deliveredMethod, setDeliveredMethod] = React.useState(mockdeliveryOptions[0]);
 
+   const cart = useSelector((state) => state.cartSlice);
+   const {shippingAddress} = cart;
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
+
+   const [firstName, setFirstName] = React.useState('');
+   const [lastName, setLastName] = useState("");
+   const [company, setCompany] = React.useState('');
+   const [address, setAddress] = React.useState(shippingAddress?.address || "");
+   const [city, setCity] = React.useState(shippingAddress?.city || "");
+   const [state, setState] = React.useState(shippingAddress?.state || "");
+   const [postalCode, setPostalCode] = React.useState(shippingAddress?.postalCode || "");
+   const [phoneNumber, setPhoneNumber] = React.useState(shippingAddress?.phoneNumber || "");
+   const [country, setCountry] = React.useState(shippingAddress?.country || "");
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        dispatch(saveShippingAddress({
+            firstName: firstName,
+            lastName: lastName,
+            company: company,
+            address: address,
+            city: city,
+            state: state,
+            postalCode: postalCode,
+            phoneNumber: phoneNumber,
+            country: country,
+        }));
+        navigate("/summary")
+    }
+
     return (
         <>
         <section className={"bg-gray-100"}>
         <div className={"p-1"}>
             <div className={"mx-auto max-w-2xl px-4 pb-22 pt-16 sm:px-6 lg:max-w-7xl lg:px-8"}>
                 <h1 className={"text-3xl font-semibold"}>Checkout Shopping</h1>
-                <form className={"lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"}>
+                <form
+                    onSubmit={onSubmitHandler}
+                    className={"lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"}>
 
                     <div className={"mt-10 border-t border-gray-300 pt-10"}>
 
@@ -98,6 +133,8 @@ export default function CheckoutScreen() {
                                         type={"text"}
                                         autoComplete={"given-name"}
                                         placeholder={"Enter your first name"}
+                                        required={true}
+                                        onChange={(e) => setFirstName(e.target.value)}
                                         className={"block w-full rounded-md bg-white px-3 py-2 text-base text-gray-800 outline outline-1 -outline-offset-1 outline-gray-400" +
                                             "placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 sm:text-sm/6"}/>
                                 </div>
@@ -113,6 +150,8 @@ export default function CheckoutScreen() {
                                         type={"text"}
                                         autoComplete={"given-name"}
                                         placeholder={"Enter your last name"}
+                                        required={true}
+                                        onChange={(e) => setLastName(e.target.value)}
                                         className={"block w-full rounded-md bg-white px-3 py-2 text-base text-gray-800 outline outline-1 -outline-offset-1 outline-gray-400" +
                                             "placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 sm:text-sm/6"}/>
                                 </div>
@@ -129,6 +168,8 @@ export default function CheckoutScreen() {
                                     name={"company"}
                                     type={"text"}
                                     placeholder={"Enter your company"}
+                                    required={false}
+                                    onChange={(e) => setCompany(e.target.value)}
                                     className={"block w-full rounded-md bg-white px-3 py-2 text-base text-gray-800 outline outline-1 -outline-offset-1 outline-gray-400" +
                                         "placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 focus:ring-2  sm:text-sm/6"}
                                 />
@@ -145,6 +186,8 @@ export default function CheckoutScreen() {
                                     name={"address"}
                                     type={"text"}
                                     placeholder={"Enter your address"}
+                                    required={true}
+                                    onChange={(e) => setAddress(e.target.value)}
                                     className={"block w-full rounded-md bg-white px-3 py-2 text-base text-gray-800 outline outline-1 -outline-offset-1 outline-gray-400" +
                                         "placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 sm:text-sm/6"}
                                 />
@@ -163,6 +206,8 @@ export default function CheckoutScreen() {
                                         type={"text"}
                                         autoComplete={"given-name"}
                                         placeholder={"Enter City"}
+                                        required={true}
+                                        onChange={(e) => setCity(e.target.value)}
                                         className={"block w-full rounded-md bg-white px-3 py-2 text-base text-gray-800 outline outline-1 -outline-offset-1 outline-gray-400" +
                                             "placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 sm:text-sm/6"}/>
                                 </div>
@@ -175,6 +220,8 @@ export default function CheckoutScreen() {
                                     <select id={"country"}
                                             name={"country"}
                                             autoComplete={"country-name"}
+                                            required={true}
+                                            onChange={(e) => setCountry(e.target.value)}
                                             className={"col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-800 outline outline-1 " +
                                                 "-outline-offset-1 outline-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 sm:text-sm/6"}
                                     >
@@ -202,6 +249,8 @@ export default function CheckoutScreen() {
                                         type={"text"}
                                         autoComplete={"given-name"}
                                         placeholder={"Enter State"}
+                                        required={true}
+                                        onChange={(e) => setState(e.target.value)}
                                         className={"block w-full rounded-md bg-white px-3 py-2 text-base text-gray-800 outline outline-1 -outline-offset-1 outline-gray-400" +
                                             "placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 sm:text-sm/6"}/>
                                 </div>
@@ -217,6 +266,8 @@ export default function CheckoutScreen() {
                                         type={"text"}
                                         autoComplete={"given-name"}
                                         placeholder={"Enter ZipCode"}
+                                        required={true}
+                                        onChange={(e) => setPostalCode(e.target.value)}
                                         className={"block w-full rounded-md bg-white px-3 py-2 text-base text-gray-800 outline outline-1 -outline-offset-1 outline-gray-400" +
                                             "placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 sm:text-sm/6"}/>
                                 </div>
@@ -233,6 +284,8 @@ export default function CheckoutScreen() {
                                     name={"phone_number"}
                                     type={"text"}
                                     placeholder={"Enter your phone number"}
+                                    required={true}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
                                     className={"block w-full rounded-md bg-white px-3 py-2 text-base text-gray-800 outline outline-1 -outline-offset-1 outline-gray-400" +
                                         "placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 sm:text-sm/6"}
                                 />
@@ -286,7 +339,7 @@ export default function CheckoutScreen() {
 
                         <div className={"mt-3 rounded-lg border border-gray-300 bg-white shadow-sm"}>
                             <h3 className={"sr-only"}>Items in your cart</h3>
-                            <ul role={"list"} className={"divide-y divide-gray-300"}>
+                            <ul className={"divide-y divide-gray-300"}>
                                 {mockShopping.map((items) => {
                                     return (
                                         <li key={items._id}
@@ -351,7 +404,7 @@ export default function CheckoutScreen() {
                             <div className={"border-t border-gray-300 py-6 px-4 sm:px-6"}>
                                 <button
                                     type="submit"
-                                    className="w-72 rounded-lg border border-transparent bg-blue-500 opacity-80 px-4 py-3
+                                    className="w-full rounded-lg border border-transparent bg-blue-500 opacity-80 px-4 py-3
                                     text-base font-medium text-white shadow-sm hover:scale-105 transition-all duration-500 focus:outline-none focus:ring-2
                                     focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50 "
                                 >

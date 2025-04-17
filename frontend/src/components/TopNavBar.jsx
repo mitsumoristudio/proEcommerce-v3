@@ -80,7 +80,7 @@ export default function TopNavBar() {
                         {/*    <FaShoppingCart size={26}/>*/}
                         {/*</NavLink>*/}
                         <div className={"flex items-center gap-3 cursor-pointer group relative "}>
-                            <NavLink to={"/carts"}>
+                            <NavLink to={"/cart"}>
                                 <FaShoppingCart size={26}/>
                                 {cartItems.length > 0 && (
                                     <h3 className={"text-gray-800 font-semibold"} style={{marginLeft: "5px"}}>
