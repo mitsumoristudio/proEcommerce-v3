@@ -127,7 +127,10 @@ export default function ProductTableScreen() {
 
 
                                 <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-                                    <button className='text-indigo-400 hover:text-indigo-300 mr-2'>Edit</button>
+                                    <Link to={`/admin/products/${product._id}/edit`}>
+                                        <button className='text-indigo-400 hover:text-indigo-300 mr-2'>Edit</button>
+                                    </Link>
+
                                     <button className='text-red-400 hover:text-red-300'>Delete</button>
                                 </td>
                             </motion.tr>

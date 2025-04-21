@@ -1,17 +1,42 @@
 
 import React from 'react';
 import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {ChevronDownIcon, StarIcon} from "@heroicons/react/16/solid";
-import {Field, Fieldset, Label, Description, Textarea} from "@headlessui/react";
+import {Field, Label, Textarea} from "@headlessui/react";
+import {useCreateReviewMutation, useGetProductDetailsByIdQuery} from "../features/slices/productApiSlice";
+import {toast} from "react-toastify";
 
 export default function AddReviewScreen() {
+
+    const {id: productId} = useParams();
+    const {data: product} = useGetProductDetailsByIdQuery(productId);
+    const [createReview] = useCreateReviewMutation();
+
     const [rating, setRating] = useState(0);
-    const [reviewComment, setReviewComment] = useState("");
+    const [comment, setComment] = useState("");
+
+    const onsubmitHandler = async (e) => {
+        e.preventDefault();
+        try {
+            await createReview({
+                productId: product._id,
+                rating: rating,
+                comment: comment,
+            }).unwrap();
+            toast.success("Product Added Successfully.");
+
+            setRating(0);
+            setComment("");
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
 
     return (
         <>
-            <form className={'min-h-[80vh] flex items-center'}>
+            <form className={'min-h-[80vh] flex items-center'}
+            onSubmit={onsubmitHandler}>
 
                 <div
                     className={'flex flex-col gap-3 m-auto items-start p-8 min-w-[360px] sm: min-w-120 border rounded-xl text-zinc-700 text-sm shadow-lg '}>
@@ -39,7 +64,7 @@ export default function AddReviewScreen() {
                         />
                     </div>
 
-                    <Field onChange={(e) => setReviewComment(e.target.value)}>
+                    <Field onChange={(e) => setComment(e.target.value)}>
                         <Label className={"font-bold text-lg"}>Comments</Label>
                         <div className={"w-72 flex flex-col mx-auto mt-3 my-4 "}>
                             <Textarea
@@ -65,10 +90,7 @@ export default function AddReviewScreen() {
                             > Cancel
                             </button>
                         </Link>
-
                     </div>
-
-
                 </div>
 
             </form>

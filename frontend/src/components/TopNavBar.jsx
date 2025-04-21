@@ -135,7 +135,7 @@ export default function TopNavBar() {
                         {/* User Login */}
                         {userInfo && userInfo.isAdmin && (
                             <div className={"flex items-center gap-3 cursor-pointer group relative"}>
-                                <NavLink to={"/admin"}>
+                                <NavLink to={"/"}>
                                     <RiAdminLine size={26}/>
                                     <div
                                         className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>

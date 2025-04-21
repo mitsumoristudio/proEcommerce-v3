@@ -8,6 +8,7 @@ import {addOrderItems,
         updateOrderToDelivered,
         getOrders,
         protectAddOrderItems} from "../controllers/orderController.js";
+import router from "./userRoutes.js";
 
 export const orderRoutes = express.Router();
 
@@ -21,3 +22,4 @@ orderRoutes.route("/:id").get(protectRoute, getOrderById);
 orderRoutes.route("/:id/pay").put(protectRoute, updateOrderToPaid);
 orderRoutes.route("/:id/deliver").put(protectRoute, admin, updateOrderToDelivered);
 
+export default orderRoutes;

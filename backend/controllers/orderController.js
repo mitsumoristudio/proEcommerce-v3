@@ -116,7 +116,7 @@ export const getOrderById = asyncHandler(async (req, res) => {
 
 // @desc    Update order to paid
 // @route   PUT/api/orders/:id/pay
-// @access  Private
+// @access  Private PAYPAL
 export const updateOrderToPaid = asyncHandler(async (req, res) => {
     const order = await OrdersModels.findById(req.params.id);
     if (order) {

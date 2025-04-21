@@ -1,7 +1,7 @@
 
 import React from 'react';
 // import mockProducts from "../assets/mockdata/mockProducts";
-import {useParams, useNavigate} from "react-router-dom";
+import {useParams, useNavigate, NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
 import {addToCart} from "../features/slices/cartSlice";
@@ -11,7 +11,6 @@ import { StarIcon } from '@heroicons/react/20/solid'
 import {ChevronDownIcon} from "@heroicons/react/16/solid";
 import {useGetProductDetailsByIdQuery} from "../features/slices/productApiSlice";
 import CustomLoader from "../components/CustomLoader";
-
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -242,7 +241,12 @@ export default function ProductScreen() {
 
                         <section className={"border-t border-gray-200 px-1 py-2 sm:px-0"}>
                             <>
-                                <ProductReview/>
+                                {/*<ProductReview product={product}*/}
+                                {/*               key={product._id}/>*/}
+
+                                    <ProductReview product={product}
+                                                   key={product.id} />
+
                             </>
                         </section>
                     </div>

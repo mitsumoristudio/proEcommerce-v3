@@ -8,6 +8,7 @@ export default function HomeScreen() {
             <main className={"relative"} >
                 <section className={"xl:p-1"}>
                     <HeroHeader />
+
                 </section>
 
             </main>

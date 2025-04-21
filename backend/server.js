@@ -6,6 +6,9 @@ import {notFound, errorHandler} from "./middleware/errorHandler.js";
 import connectToMongodb from "./config/mongoosedb.js";
 import userRoutes from "../backend/routes/userRoutes.js";
 import productRoutes from "../backend/routes/productRoutes.js";
+import ordersRoutes from "../backend/routes/orderRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
+import path from "path";
 
 dotenv.config();
 
@@ -33,6 +36,21 @@ app.use("/api/users", userRoutes);
 
 // Products
 app.use("/api/products", productRoutes);
+
+// Orders
+app.use("/api/orders", ordersRoutes);
+
+// Upload Images
+app.use("/api/uploads", uploadRoutes);
+
+// payPal
+app.get("/api/config/paypal", (req, res) =>
+    res.send({clientId: process.env.PAYPAL_CLIENT_ID}))
+
+// Set upload folder as static
+const __dirname = path.resolve(); // Set _dirname to current directory
+app.use(`/uploads`, express.static(path.join(__dirname, `../uploads`))); // changed the pathname because the root folder would not accept /uploads
+
 
 
 // Error Handler

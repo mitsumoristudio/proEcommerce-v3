@@ -12,71 +12,72 @@ const mockdeliveryOptions = [
  //   { id: 2, shipping:"Express", turnaround: "3-5 business days", price:"$18.00"},
 ]
 
-const mockShopping = [
-    {
-        _id: '1',
-        name: 'Wooden Designer Chair',
-        image: assets.chair1,
-        description:
-            'Contemporary wooden chair. Designed in Japan',
-        brand: 'DWR',
-        category: 'Furniture',
-        price: 489.99,
-        countInStock: 12,
-        rating: 4.5,
-        numReviews: 38,
-    },
-    {
-        _id: '2',
-        name: 'Grey Comfortable Arm Chair',
-        image: assets.grey_comportable_armchair,
-        description:
-            'The Emmy speaks to multiple generations,” says Beamer. “Youthful yet mature, it resonates with a sense of modernism' +
-            ' and tradition. It’s a place to feel at home.” Made in U.S.A.',
-        brand: 'Emma Chair',
-        category: 'Furniture',
-        price: 599.99,
-        countInStock: 7,
-        rating: 4.0,
-        numReviews: 40,
-    },
-    {
-        _id: '3',
-        name: 'Grey Lounge Sofa',
-        image: assets.grey_sofa_isolated,
-        description:
-            'Charles and Ray Eames had ideas about making a better world, one in which things were designed to ' +
-            'fulfill the practical needs of ordinary people and bring greater pleasure to our lives. Their Soft Pad ' +
-            'Collection (1969) of luxuriously padded chairs evolved from their Aluminum Group Collection. With the addition ' +
-            'of plush 2” thick cushions, the Soft Pad Collection retains the style of the earlier one but adds ' +
-            'significant comfort. Backed by a 12-year manufacturer’s warranty.',
-        brand: 'Emma Chair',
-        category: 'Furniture',
-        price: 3299.99,
-        countInStock: 3,
-        rating: 2.0,
-        numReviews: 50,
-    },
-    {
-        _id: '4',
-        name: 'Modern Bedrooms',
-        image: assets.modern_bedroom,
-        description:
-            'Modern bedroom developed for creature comfort. Designed in Japan',
-        brand: 'Herman Miller',
-        category: 'Furniture',
-        price: 1299.99,
-        countInStock:22,
-        rating: 4.0,
-        numReviews: 10,
-    },
-]
+// const mockShopping = [
+//     {
+//         _id: '1',
+//         name: 'Wooden Designer Chair',
+//         image: assets.chair1,
+//         description:
+//             'Contemporary wooden chair. Designed in Japan',
+//         brand: 'DWR',
+//         category: 'Furniture',
+//         price: 489.99,
+//         countInStock: 12,
+//         rating: 4.5,
+//         numReviews: 38,
+//     },
+//     {
+//         _id: '2',
+//         name: 'Grey Comfortable Arm Chair',
+//         image: assets.grey_comportable_armchair,
+//         description:
+//             'The Emmy speaks to multiple generations,” says Beamer. “Youthful yet mature, it resonates with a sense of modernism' +
+//             ' and tradition. It’s a place to feel at home.” Made in U.S.A.',
+//         brand: 'Emma Chair',
+//         category: 'Furniture',
+//         price: 599.99,
+//         countInStock: 7,
+//         rating: 4.0,
+//         numReviews: 40,
+//     },
+//     {
+//         _id: '3',
+//         name: 'Grey Lounge Sofa',
+//         image: assets.grey_sofa_isolated,
+//         description:
+//             'Charles and Ray Eames had ideas about making a better world, one in which things were designed to ' +
+//             'fulfill the practical needs of ordinary people and bring greater pleasure to our lives. Their Soft Pad ' +
+//             'Collection (1969) of luxuriously padded chairs evolved from their Aluminum Group Collection. With the addition ' +
+//             'of plush 2” thick cushions, the Soft Pad Collection retains the style of the earlier one but adds ' +
+//             'significant comfort. Backed by a 12-year manufacturer’s warranty.',
+//         brand: 'Emma Chair',
+//         category: 'Furniture',
+//         price: 3299.99,
+//         countInStock: 3,
+//         rating: 2.0,
+//         numReviews: 50,
+//     },
+//     {
+//         _id: '4',
+//         name: 'Modern Bedrooms',
+//         image: assets.modern_bedroom,
+//         description:
+//             'Modern bedroom developed for creature comfort. Designed in Japan',
+//         brand: 'Herman Miller',
+//         category: 'Furniture',
+//         price: 1299.99,
+//         countInStock:22,
+//         rating: 4.0,
+//         numReviews: 10,
+//     },
+// ]
 
 export default function CheckoutScreen() {
    const [deliveredMethod, setDeliveredMethod] = React.useState(mockdeliveryOptions[0]);
 
    const cart = useSelector((state) => state.cartSlice);
    const {shippingAddress} = cart;
+   const {cartItems} = cart;
    const navigate = useNavigate();
    const dispatch = useDispatch();
 
@@ -103,7 +104,7 @@ export default function CheckoutScreen() {
             phoneNumber: phoneNumber,
             country: country,
         }));
-        navigate("/summary")
+        navigate("/placeorder")
     }
 
     return (
@@ -111,7 +112,7 @@ export default function CheckoutScreen() {
         <section className={"bg-gray-100"}>
         <div className={"p-1"}>
             <div className={"mx-auto max-w-2xl px-4 pb-22 pt-16 sm:px-6 lg:max-w-7xl lg:px-8"}>
-                <h1 className={"text-3xl font-semibold"}>Checkout Shopping</h1>
+                <h1 className={"text-3xl font-semibold"}>Confirm Shipping</h1>
                 <form
                     onSubmit={onSubmitHandler}
                     className={"lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"}>
@@ -332,15 +333,15 @@ export default function CheckoutScreen() {
                         </div>
 
                     {/* Order Summary*/}
-                    <div className={"mb-4 lg:mb-4"}>
+                    <section className={"mb-4 lg:mb-4"}>
                         <h2 className={"text-3xl font-semibold"}>Order Summary</h2>
 
                         <div className={"mt-10 border-t border-gray-300 pt-10"}></div>
 
                         <div className={"mt-3 rounded-lg border border-gray-300 bg-white shadow-sm"}>
                             <h3 className={"sr-only"}>Items in your cart</h3>
-                            <ul className={"divide-y divide-gray-300"}>
-                                {mockShopping.map((items) => {
+                            <ul key={"cartItemID"} className={"divide-y divide-gray-300"}>
+                                {cartItems.map((items) => {
                                     return (
                                         <li key={items._id}
                                         className={"flex px-4 py-5 sm:px-5"}>
@@ -363,7 +364,7 @@ export default function CheckoutScreen() {
                                                     <div className={"ml-5"}>
                                                         <div className={"grid grid-cols-1"}>
                                                             {/* Add Quantity Later */}
-                                                            <h4>Quantity: {items.countInStock}</h4>
+                                                            <h4>Quantity: {items.qty}</h4>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -379,17 +380,19 @@ export default function CheckoutScreen() {
                             <dl className={"space-y-6 border-t border-gray-300 px-4 py-6 sm:px-6"}>
                                 <div className={"flex items-center justify-between"}>
                                     <dt className={"text-sm"}>Subtotal</dt>
-                                    <dd className={"text-sm text-gray-800 font-medium"}>$120.00</dd>
+                                    <dd className={"text-sm text-gray-800 font-medium"}>
+                                        ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
+                                    </dd>
                                 </div>
 
                                 <div className={"flex items-center justify-between"}>
-                                    <dt className={"text-sm"}>Shipping</dt>
-                                    <dd className={"text-sm text-gray-800 font-medium"}>$6.00</dd>
+                                    <dt className={"text-sm"}>Shipping </dt>
+                                    <dd className={"text-sm text-gray-800 font-medium"}>${cart.shippingPrice}</dd>
                                 </div>
 
                                 <div className={"flex items-center justify-between"}>
                                     <dt className={"text-sm"}>Taxes</dt>
-                                    <dd className={"text-sm text-gray-800 font-medium"}>$20.00</dd>
+                                    <dd className={"text-sm text-gray-800 font-medium"}>${cart.taxPrice}</dd>
                                 </div>
 
                                 <div className={" border-t border-gray-300 pb-2"}></div>
@@ -397,7 +400,7 @@ export default function CheckoutScreen() {
                                     <div className={"flex items-center justify-between"}>
 
                                         <dt className={"text-lg text-gray-800 font-bold"}>Total</dt>
-                                        <dd className={"text-lg text-gray-800 font-bold"}>$146.00</dd>
+                                        <dd className={"text-lg text-gray-800 font-bold"}>${cart.totalPrice}</dd>
                                     </div>
                             </dl>
 
@@ -408,14 +411,14 @@ export default function CheckoutScreen() {
                                     text-base font-medium text-white shadow-sm hover:scale-105 transition-all duration-500 focus:outline-none focus:ring-2
                                     focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50 "
                                 >
-                                    Confirm Purchase
+                                    Confirm Shipping
                                 </button>
                             </div>
 
                         </div>
 
 
-                    </div>
+                    </section>
                 </form>
             </div>
 
