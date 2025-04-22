@@ -46,7 +46,7 @@ export default function ProductTableScreen() {
                     </div>
 
                     <div className={"flex flex-row "}>
-                    <Link to='/product/addProduct'>
+                    <Link to="/admin/addProduct">
                         <button
                             className={" right-2 mt-1 bg-blue-800 text-white text-md px-4 py-3 rounded-3xl shadow-md cursor-pointer " +
                                 "hover:scale-110 transition-all duration-500"}>
@@ -91,7 +91,8 @@ export default function ProductTableScreen() {
                                 animate={{opacity: 1}}
                                 transition={{duration: 0.3}}
                             >
-                                <td className='px-6 py-4 whitespace-nowrap'>
+
+                                <td className='px-6 py-4 whitespace-nowrap' key={product.id}>
                                     <div className='flex items-center'>
                                         <div className='flex-shrink-0 h-10 w-10'>
                                             <div

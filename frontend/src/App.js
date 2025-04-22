@@ -49,7 +49,7 @@ export default function App() {
                  </Route>
 
               <Route path={""} element={<AdminRoute />}>
-                  <Route path={"/products/:id/addProduct"} element={<AddProductScreen />} />
+                  <Route path={"/admin/addProduct"} element={<AddProductScreen />} />
                   <Route path={"/admin/usertable"} element={<UserTableScreen />} />
                   <Route path={"/admin/producttable"} element={<ProductTableScreen />} />
                   <Route path={"/admin/products/:id/edit"} element={<ProductEditScreen />} />

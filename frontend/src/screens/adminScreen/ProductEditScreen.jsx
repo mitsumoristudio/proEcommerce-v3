@@ -21,16 +21,64 @@ export default function ProductEditScreen() {
 
     const navigate = useNavigate();
 
+    const uploadImageHandler = async (e) => {
+        const formData = new FormData();
+        formData.append('image', e.target.files[0]);
+        try {
+            const res = await updateProductImage(formData).unwrap();
+            toast.success("Image uploaded successfully.");
+
+            setImage(res.image)
+        } catch (error) {
+            toast.error(error?.data?.message || error.error)
+        }
+        //  console.log(e.target.files[0]);
+    }
+
+    const onSubmitHandler = async (e) => {
+        e.preventDefault();
+        try {
+            await updateProduct({
+                productId: productId,
+                name: name,
+                price: price,
+                image: image,
+                brand: brand,
+                category: category,
+                description: description,
+                countInStock: countInStock,
+            }).unwrap();
+            toast.success("Product updated successfully.");
+            refetch();
+            navigate("/");
+        } catch (err) {
+            toast.error(err?.data?.message || err.error);
+        }
+    }
+
+    useEffect(() => {
+        if (product) {
+            setName(product.name);
+            setPrice(product.price);
+            setImage(product.image);
+            setBrand(product.brand);
+            setCategory(product.category);
+            setCountInStock(product.countInStock);
+            setDescription(product.description);
+        }
+    }, [product]);
+
     return (
         <>
             <form className={'min-h-[80vh] flex items-center p-1'}
+                  onSubmit={onSubmitHandler}
             >
                 <div
                     className={"flex flex-col gap-3 m-auto items-start p-8 min-w-[460px] sm: min-w-280 border rounded-xl\ " +
                         "text-zinc-700 text-sm shadow-lg "}
                 >
                     <h1 className={"text-2xl font-semibold text-center text-gray-800"}>
-                        Add new product
+                        Edit product
                     </h1>
 
                     <div className={'w-full '}>
@@ -93,7 +141,7 @@ export default function ProductEditScreen() {
                             type="file"
                             accept={"image/*"}
                             className={"hidden"}
-                            onChange={(e) => setImage(e.target.value)}
+                            onChange={uploadImageHandler}
 
                         />
 

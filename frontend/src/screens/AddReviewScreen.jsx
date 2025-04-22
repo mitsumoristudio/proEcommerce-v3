@@ -6,6 +6,7 @@ import {ChevronDownIcon, StarIcon} from "@heroicons/react/16/solid";
 import {Field, Label, Textarea} from "@headlessui/react";
 import {useCreateReviewMutation, useGetProductDetailsByIdQuery} from "../features/slices/productApiSlice";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 export default function AddReviewScreen() {
 
@@ -13,8 +14,10 @@ export default function AddReviewScreen() {
     const {data: product} = useGetProductDetailsByIdQuery(productId);
     const [createReview] = useCreateReviewMutation();
 
+
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
+    const navigate = useNavigate();
 
     const onsubmitHandler = async (e) => {
         e.preventDefault();
@@ -24,10 +27,12 @@ export default function AddReviewScreen() {
                 rating: rating,
                 comment: comment,
             }).unwrap();
-            toast.success("Product Added Successfully.");
+            toast.success("Product review was added successfully.");
 
             setRating(0);
             setComment("");
+            navigate("/");
+
         } catch (error) {
             toast.error(error.message);
         }
