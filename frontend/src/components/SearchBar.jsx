@@ -1,27 +1,30 @@
 
 import {useState} from "react";
 import {FaSearch} from "react-icons/fa";
+import {useGetAllProductsQuery} from "../features/slices/productApiSlice";
 
 export default function SearchBar() {
-    const [query, setQuery] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
+    const {data: products} = useGetAllProductsQuery();
+    const [filteredProducts, setFilteredProducts] = useState(products);
 
-    const handleInputChange = (e) => {
-        setQuery(e.target.value);
-    }
-    const handleSearch = () => {
-        console.log("Searching for", query);
+    const handleSearchHandler = (e) => {
+        const term = e.target.value.toLowerCase();
+        setSearchTerm(term);
+
+        const filtered = products.filter((product) => product.name.toLowerCase().includes(term));
+        setFilteredProducts(filtered);
     }
     return (
         <div className={"flex justify-center items-center p-4"}>
             <div className={"relative w-full max-w-md"}>
                 <input
                 type="text"
-                value={query}
-                onChange={handleInputChange}
+                value={searchTerm}
+                onChange={handleSearchHandler}
                 placeholder={"Search..."}
                 className={"w-full px-4 py-2 pr-20 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-500"}/>
                 <button
-                onClick={handleSearch}
                 className={"absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-600 "}>
                     <FaSearch />
                 </button>

@@ -31,7 +31,7 @@ export const orderSchema = new mongoose.Schema(
             state: {type: String, required: true},
             postalCode: {type: String, required: true},
             phoneNumber: {type: String, required: false},
-            country: {type: String, required: true},
+            country: {type: String, required: false},
         },
         paymentMethod: {
             type: String,

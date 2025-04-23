@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 //import mockProducts from "../assets/mockdata/mockProducts";
 import CustomLoader from "../components/CustomLoader";
 import {useGetAllProductsQuery} from "../features/slices/productApiSlice";
@@ -8,6 +8,8 @@ import Footer from "../components/Footer";
 
 export default function ShoppingScreen() {
     const {data: products, isLoading, isError} = useGetAllProductsQuery();
+
+
     return (
         <>
             <section>
@@ -25,6 +27,7 @@ export default function ShoppingScreen() {
                             </div>
                         ) : (
                             <>
+
                                 <ProductCard products={products}
                                 key={products._id}/>
                             </>

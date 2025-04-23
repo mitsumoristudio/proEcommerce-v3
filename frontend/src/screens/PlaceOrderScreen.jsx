@@ -5,88 +5,44 @@ import {useDispatch, useSelector} from "react-redux";
 import {useCreateOrderMutation} from "../features/slices/orderApiSlice";
 import CustomLoader from "../components/CustomLoader";
 import {Message} from "../components/Message";
+
 import {toast} from "react-toastify";
-import {useGetOrderDetailsQuery,
-        usePayOrderMutation,
-        useGetPayPalClientIdQuery}  from "../features/slices/orderApiSlice";
-import {PayPalButtons, PayPalMarks, usePayPalScriptReducer} from "@paypal/react-paypal-js";
+import {clearCartItems} from "../features/slices/cartSlice";
+
 
 export default function PlaceOrderScreen() {
     const cart = useSelector((state) => state.cartSlice);
     const {cartItems} = cart;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { id: orderId} = useParams();
 
-    const { data: order, isLoading, error, refetch } = useGetOrderDetailsQuery(orderId);
-    const {userInfo} = useSelector((state) => state.auth);
-    const [ payOrder, {isLoading: loadingPay}] = usePayOrderMutation();
-    const [{isPending}, paypalDispatch] = usePayPalScriptReducer()
+    const [createOrder, {isLoading, error}] = useCreateOrderMutation();
 
-    const { data: paypal, isLoading: loadingPaypal, error: errorPaypal} = useGetPayPalClientIdQuery();
+    const placeOrderHandler = async () => {
+        try {
+            const res = await createOrder({
+                orderItems: cart.cartItems,
+                shippingAddress: cart.shippingAddress,
+                paymentMethod: cart.paymentMethod,
+                itemsPrice: cart.itemsPrice,
+                shippingPrice: cart.shippingPrice,
+                taxPrice: cart.taxPrice,
+                totalPrice: cart.totalPrice,
+            }).unwrap();
+            dispatch(clearCartItems());
+            toast.success("Order created successfully");
 
-    useEffect(() => {
-        if (!errorPaypal && !loadingPaypal && paypal.clientId) {
-            const loadPayPalScript = async () => {
-                paypalDispatch({
-                    type: "resetOptions",
-                    value: {
-                        "clientId" : paypal.clientId,
-                        currency: "USD"
-                    }
-                });
-                paypalDispatch({type: "setLoadingStatus", value: "pending"});
-            }
-            if (order && !order.isPaid) {
-                if (!window.paypal) {
-                    loadPayPalScript();
-                }
-            }
+            navigate(`/orders/${res._id}`);
+        } catch (error) {
+            toast.error(error)
         }
-    }, [order, paypal, paypalDispatch, loadingPaypal, errorPaypal]);
-
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
     }
-
-    function onApprove(data, actions) {
-        return actions.order.capture().then(async function (details) {
-            try {
-                await payOrder({orderId, details});
-                refetch();
-                toast.success("Payment was successfully approved.");
-            } catch (err) {
-                toast.error(err?.data?.message || err.message);
-            }
-        });
-    }
-    async function onApproveTest() {
-        await payOrder({orderId, details: {payer: { } }});
-        refetch();
-        toast.success("Payment was successfully approved.");
-    }
-    function onError(err) {
-        toast.error(err.message);
-    }
-    function createOrder(data, actions) {
-        return actions.order.create({
-            purchase_units: [
-                {
-                    amount: {
-                        value: order.totalPrice,
-                    }
-                }
-            ]
-        }).then((orderId) => {
-            return orderId;
-        });
-    }
-
     return (
         <>
                 <section className={"bg-gray-100"}>
                     <div className={"p-1"}>
                         <div className={"mx-auto max-w-2xl px-4 pb-22 pt-16 sm:px-6 lg:max-w-7xl lg: px-8"}>
+
                             <div
                                 className={"items-center py-2 mb-8 max-w-96 bg-gray-200  border-t-4 shadow-md rounded-lg p-4"}>
                                 <h1 className={"text-2xl mb-2 font-semibold"}>Shipping Information</h1>
@@ -101,14 +57,6 @@ export default function PlaceOrderScreen() {
                                     <p className={"text-gray-500 items-center font-medium"}>{cart.shippingAddress.state},</p>
                                     <p className={"text-gray-500 items-center font-medium"}>{cart.shippingAddress.postalCode}</p>
                                 </div>
-                            </div>
-
-                            {/* PAY ORDER PLACEHOLDER Add onClickHandler here*/}
-                            <div className={"py-2 my-6"}>
-                                <button
-                                    className={"w-60 h-12 ml-4 bg-blue-600 rounded-lg text-white items-center shadow-md cursor-pointer hover:transition-all scale-105 duration-500"}>
-                                    Test Pay Order
-                                </button>
                             </div>
 
 
@@ -187,6 +135,7 @@ export default function PlaceOrderScreen() {
                                     <div className={"border-t border-gray-300 py-6 px-4 sm:px-6"}>
                                         <button
                                             type="submit"
+                                            onClick={placeOrderHandler}
                                             className="w-9/12 rounded-lg border border-transparent ml-32 bg-blue-500 opacity-80 px-4 py-3
                                     text-base font-medium text-white shadow-sm hover:scale-110 transition-all duration-500 focus:outline-none focus:ring-2
                                     focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50 "

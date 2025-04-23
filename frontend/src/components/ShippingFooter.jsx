@@ -1,4 +1,6 @@
 
+import React from 'react';
+
 const benefits = [
     {
         name: 'Free shipping for purchases over $100',
@@ -21,7 +23,7 @@ const benefits = [
 export default function ShippingFooter() {
     return (
         <div className={"bg-white"}>
-            <div className={"mx-auto max-w-7xl px-4 py-6 sm:px-6 lg: px-6"}>
+            <div className={"mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-6"}>
                 <div className={"rounded-xl bg-gray-200 px-6 py-16 opacity-85 shadow-md sm:p-16"}>
                     <div className={"mx-auto max-w-xl h-auto lg:max-w-none inset-0 relative"}>
                         <div className={"text-center"}>
@@ -29,10 +31,11 @@ export default function ShippingFooter() {
                                 Contemporary design at an affortable price
                             </h2>
                         </div>
-                        <div className={"mx-auto mt-12 grid max-w-sm grid-cols-1 gap-x-8 gap-y-10 sm:max-w-none lg:grid-cols-3"}>
+
+                        <ul className={"mx-auto mt-12 grid max-w-sm grid-cols-1 gap-x-8 gap-y-10 sm:max-w-none lg:grid-cols-3"}>
                             {benefits.map((incentive) => {
                                 return (
-                                    <li key={incentive._id}>
+                                    <li key={incentive.id}>
                                     <div
                                     className={"text-center sm:flex sm:text-left lg:block lg:text-center"}>
                                         <div className={"sm:shrink-0"}>
@@ -48,7 +51,7 @@ export default function ShippingFooter() {
                                     </li>
                                 )
                             })}
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>

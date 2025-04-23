@@ -4,7 +4,7 @@ import {motion} from "framer-motion";
 import { CiSearch } from "react-icons/ci";
 import {toast} from "react-toastify";
 import {NavLink} from "react-router-dom";
-import {useGetUsersQuery, useDeleteUserMutation} from "../../features/slices/userApiSlice";
+import {useGetAllUsersQuery, useDeleteUserMutation} from "../../features/slices/userApiSlice";
 
 // const mockUserData = [
 //     { id: 1, name: "John Doe", email: "john@example.com", role: "Admin", status: "Active" },
@@ -15,7 +15,7 @@ import {useGetUsersQuery, useDeleteUserMutation} from "../../features/slices/use
 // ]
 
 export default function UserTableScreen() {
-    const {data: users, isLoading, error, refetch} = useGetUsersQuery();
+    const {data: users, isLoading, error, refetch} = useGetAllUsersQuery();
     const [deletedUser, {isLoading: loadingDelete}] = useDeleteUserMutation();
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -87,7 +87,7 @@ export default function UserTableScreen() {
                         </thead>
 
                         <tbody className='divide-y divide-gray-700'>
-                        {filteredUsers.map((user) => (
+                        {filteredUsers?.map((user) => (
                             <motion.tr
                                 key={user.id}
                                 initial={{opacity: 0}}

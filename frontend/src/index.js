@@ -12,10 +12,9 @@ root.render(
   <React.StrictMode>
       <HelmetProvider>
           <Provider store={store}>
-              <PayPalScriptProvider deferLoading={true} >
+              <PayPalScriptProvider deferLoading={true}>
                   <App />
-              </PayPalScriptProvider>a
-
+              </PayPalScriptProvider>
           </Provider>
       </HelmetProvider>
   </React.StrictMode>

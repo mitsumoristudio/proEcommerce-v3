@@ -22,9 +22,10 @@ export const productsApiSlice = apiSlice.injectEndpoints({
             keepUnusedDataFor: 5,
         }),
         createProduct: builder.mutation({
-            query: () => ({
+            query: (data) => ({
                 url: PRODUCTS_URL,
                 method: 'POST',
+                body: {...data},
             }),
             keepUnusedDataFor: 5,
             invalidatesTags: ['Products'], // add invalidatesTag as Products for the refresh to work

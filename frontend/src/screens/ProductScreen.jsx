@@ -19,39 +19,39 @@ function classNames(...classes) {
 const relatedProducts = [
     {
         id: 1,
-        name: 'Zip Tote Basket',
-        color: 'White and black',
+        name: 'Premium Denim Jeans',
+        color: 'Blue',
         href: '#',
-        imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-related-product-01.jpg',
-        imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
-        price: '$140',
+        imageSrc: "../images/jeans.jpg",
+        imageAlt: 'N/A',
+        price: '$210',
     },
     {
         id: 2,
-        name: 'Zip Tote Basket',
-        color: 'White and black',
+        name: 'Contemporary Fabric Sofa',
+        color: 'Grey',
         href: '#',
-        imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-related-product-01.jpg',
-        imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
-        price: '$140',
+        imageSrc: "../images/light_living_couch.jpg",
+        imageAlt: 'N/A',
+        price: '$2400',
     },
     {
         id: 3,
-        name: 'Zip Tote Basket',
-        color: 'White and black',
+        name: 'Vintage Wooden Cabinet',
+        color: 'Brown',
         href: '#',
-        imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-related-product-01.jpg',
-        imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
-        price: '$140',
+        imageSrc: '../images/vintage_cabinet.jpg',
+        imageAlt: 'N/A',
+        price: '$1340',
     },
     {
         id: 4,
-        name: 'Zip Tote Basket',
-        color: 'White and black',
+        name: 'Moodys Sofa',
+        color: 'Grey',
         href: '#',
-        imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-related-product-01.jpg',
-        imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
-        price: '$140',
+        imageSrc: '../images/gray_living_couch.jpg',
+        imageAlt: 'N/A',
+        price: '$2200',
     },
 
     // More products...
@@ -75,6 +75,10 @@ export default function ProductScreen() {
     const addToCartHandler = () => {
         dispatch(addToCart({...product, qty}));
         navigate("/cart");
+    }
+
+    const dummyAddToCartHandler = () => {
+        navigate("/");
     }
 
     // const product = products.find((product) => product._id === productId);
@@ -190,10 +194,6 @@ export default function ProductScreen() {
                                     <h2 id="details-heading" className="sr-only">
                                         Additional details
                                     </h2>
-
-                                    <div className="divide-y divide-gray-200 border-t">
-
-                                    </div>
                                 </section>
                             </div>
                         </div>
@@ -209,7 +209,7 @@ export default function ProductScreen() {
                                 {relatedProducts.map((product) => (
                                     <div key={product.id}>
                                         <div className="relative">
-                                            <div className="relative h-72 w-full overflow-hidden rounded-lg">
+                                            <div className="relative h-72 w-full overflow-hidden rounded-lg cursor-pointer">
                                                 <img alt={product.imageAlt} src={product.imageSrc}
                                                      className="size-full object-cover"/>
                                             </div>
@@ -227,12 +227,12 @@ export default function ProductScreen() {
                                             </div>
                                         </div>
                                         <div className="mt-6 cursor-pointer ">
-                                            <a
-                                                href={product.href}
-                                                className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
+                                            <button
+                                                onClick={dummyAddToCartHandler}
+                                                className="relative w-full flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
                                             >
                                                 Add to bag<span className="sr-only">, {product.name}</span>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 ))}

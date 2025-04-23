@@ -7,6 +7,7 @@ import  { useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addToCart, removeFromCart} from "../features/slices/cartSlice";
 import {FaTrash} from "react-icons/fa";
+import {toast} from "react-toastify";
 
 // import {assets} from "../assets/assets";
 
@@ -85,7 +86,10 @@ export default function CartSummaryScreen() {
         dispatch(removeFromCart(id));
     }
     const checkoutHandler = () => {
-        if (user) {
+        if (cartItems && cartItems.length === 0) {
+            toast.error("Cart is empty");
+        }
+        if (user && cartItems.length > 0) {
             navigate("/checkout");
         } else {
             navigate("/login");
@@ -105,9 +109,9 @@ export default function CartSummaryScreen() {
                                 Items in your shopping cart
                             </h2>
 
-                            <ul key={"cartItem"} className="divide-y divide-gray-200 border-b border-t border-gray-200">
+                            <ul key={"cartId"} className="divide-y divide-gray-200 border-b border-t border-gray-200">
                                 {cartItems.map((product, productIdx) => (
-                                    <li key={product.id} className="flex py-6 sm:py-10">
+                                    <li key={product._id} className="flex py-6 sm:py-10">
                                         <div className="shrink-0">
                                             <img
                                                 alt={product.name}

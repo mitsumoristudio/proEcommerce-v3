@@ -32,12 +32,12 @@ export const productSchema = new mongoose.Schema(
         review: [reviewSchema],
         rating: {
             type: Number,
-            required: true,
+            required: false,
             default: 0,
         },
         numReviews: {
             type: Number,
-            required: true,
+            required: false,
             default: 0,
         },
         price: {

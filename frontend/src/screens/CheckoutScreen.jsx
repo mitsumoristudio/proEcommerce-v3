@@ -218,10 +218,12 @@ export default function CheckoutScreen() {
                                     Country
                                 </label>
                                 <div className={"mt-2 grid grid-cols-1"}>
-                                    <select id={"country"}
+                                    <select id={"country-name"}
                                             name={"country"}
+                                            type={"text"}
                                             autoComplete={"country-name"}
-                                            required={true}
+                                            value={country}
+                                            required={false}
                                             onChange={(e) => setCountry(e.target.value)}
                                             className={"col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-800 outline outline-1 " +
                                                 "-outline-offset-1 outline-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-800 sm:text-sm/6"}
@@ -340,7 +342,7 @@ export default function CheckoutScreen() {
 
                         <div className={"mt-3 rounded-lg border border-gray-300 bg-white shadow-sm"}>
                             <h3 className={"sr-only"}>Items in your cart</h3>
-                            <ul key={"cartItemID"} className={"divide-y divide-gray-300"}>
+                            <ul key={"cartItemIDs"} className={"divide-y divide-gray-300"}>
                                 {cartItems.map((items) => {
                                     return (
                                         <li key={items._id}
@@ -377,7 +379,7 @@ export default function CheckoutScreen() {
                             </ul>
 
                             {/* Shipping Summary - Subtotal, Shipping, Taxes, Total */}
-                            <dl className={"space-y-6 border-t border-gray-300 px-4 py-6 sm:px-6"}>
+                            <dl className={"space-y-6 border-t border-gray-400 px-4 py-6 sm:px-6"}>
                                 <div className={"flex items-center justify-between"}>
                                     <dt className={"text-sm"}>Subtotal</dt>
                                     <dd className={"text-sm text-gray-800 font-medium"}>

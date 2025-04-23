@@ -26,12 +26,14 @@ export const getProductById = asyncHandler(async (req, res) => {
 // @route POST /api/products
 // @access Private/Admin
 export const createProduct = asyncHandler(async (req, res) => {
-    const { name, price, user, image, brand, category, countInStock, numReviews, description} = req.body;
+    const { name, price, image, brand, category, countInStock, numReviews, description} = req.body;
+
+    const userId = req.user._id;
 
     const newProduct = new ProductModels({
         name: name,
         price: price,
-        user: user,
+        user: userId,
         image: image,
         brand: brand,
         category: category,

@@ -45,7 +45,7 @@ app.use("/api/uploads", uploadRoutes);
 
 // payPal
 app.get("/api/config/paypal", (req, res) =>
-    res.send({clientId: process.env.PAYPAL_CLIENT_ID}))
+    res.send({clientId: process.env.PAYPAL_CLIENT_ID}));
 
 // Set upload folder as static
 const __dirname = path.resolve(); // Set _dirname to current directory

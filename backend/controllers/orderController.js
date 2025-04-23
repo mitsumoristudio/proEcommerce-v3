@@ -68,7 +68,7 @@ export const protectAddOrderItems = asyncHandler(async (req, res) => {
         const {itemsPrice, taxPrice, shippingPrice, totalPrice} =
             calcPrices(dbOrderItems);
 
-        const order = new OrderModel({
+        const order = new OrdersModels({
             orderItems: dbOrderItems,
             user: req.user._id,
             shippingAddress: shippingAddress,

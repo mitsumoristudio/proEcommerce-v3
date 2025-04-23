@@ -17,6 +17,8 @@ import ProductTableScreen from "./screens/adminScreen/ProductTableScreen";
 import OrderTableScreen from "./screens/adminScreen/OrderTableScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import ProductEditScreen from "./screens/adminScreen/ProductEditScreen";
+import CardPaymentScreen from "./screens/CardPaymentScreen";
+import DummyPaypalCheckout from "./components/DummyPaypalCheckout";
 
 import PrivateRoute from "./components/PrivateRoute";
 import {AdminRoute} from "./components/AdminRoute";
@@ -34,6 +36,7 @@ export default function App() {
               <Route path={"/"} index={true} element={<HomeScreen />} />
               <Route path={"/register"} element={<RegisterScreen />} />
               <Route path={"/login"} element={<LoginScreen />} />
+              <Route path={"/dummyCheckout"} element={<DummyPaypalCheckout />} />
 
               <Route path={"/products"} index={true} element={<ShoppingScreen/>} />
               <Route path={"/products/:id"} element={<ProductScreen />} />
@@ -44,7 +47,9 @@ export default function App() {
                 <Route path={""} element={<PrivateRoute/>}>
                     <Route path={"/checkout"} element={<CheckoutScreen />} />
                     <Route path={"/placeorder"} element={<PlaceOrderScreen />} />
-                    <Route path={"/summary"} element={<OrderSummaryScreen />} />
+                    <Route path={"/orders/:id/summary"} element={<OrderSummaryScreen />} />
+                    <Route path={"/orders/:id"} element={<CardPaymentScreen />} />
+
 
                  </Route>
 

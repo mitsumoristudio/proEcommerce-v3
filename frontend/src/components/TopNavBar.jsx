@@ -43,7 +43,7 @@ export default function TopNavBar() {
                              alt={"header-logo"}
                              className={"size-11 cursor-pointer justify-center mb-1"}
                              src={assets.admin_logo}/>
-                        <div className={" flex gap-2 px-2 mb-1"}>
+                        <div className={"flex items-center gap-2 px-2 mb-1 sm:hidden "}>
                             <FaFlagUsa size={22}/>
                             <h2>USD</h2>
                         </div>
@@ -99,34 +99,30 @@ export default function TopNavBar() {
 
                             {userInfo ? (
                                 <div className={"flex items-center gap-3 cursor-pointer group relative"}>
-                                    <NavLink to={"/"}>
                                         <RiUser2Fill size={26}/>
                                         <p className={"text-xs font-medium italic text-gray-800"}>{userInfo.name}</p>
                                         <div
                                             className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
                                             <div className={"min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-3"}>
-                                                <p className={"hover:text-blue-500 cursor-pointer"}
-                                                >
-                                                    <NavLink to={"/admin/profile"}>
+                                                    <NavLink className={"hover:text-blue-500"} to={"/admin/profile"}>
                                                        Profile
                                                     </NavLink>
 
-                                                </p>
-                                                <p className={"hover:text-blue-500  cursor-pointer"}
-                                                >
-                                                    <NavLink to={"/logout"}
+                                                    <NavLink
+                                                        className={"hover:text-blue-500"}
+                                                        to={"/logout"}
                                                     onClick={logoutHandler}>
                                                         Logout
                                                     </NavLink>
-                                                </p>
+
                                             </div>
                                         </div>
-
-                                    </NavLink>
                                 </div>
 
                             ) : (
-                                <NavLink to={"/login"}>
+                                <NavLink
+                                    className={"hover:text-blue-500"}
+                                    to={"/login"}>
                                     <FaUser size={26}/>
                                 </NavLink>
                             )}
@@ -135,7 +131,6 @@ export default function TopNavBar() {
                         {/* User Login */}
                         {userInfo && userInfo.isAdmin && (
                             <div className={"flex items-center gap-3 cursor-pointer group relative"}>
-                                <NavLink to={"/"}>
                                     <RiAdminLine size={26}/>
                                     <div
                                         className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
@@ -162,7 +157,7 @@ export default function TopNavBar() {
                                             </p>
                                         </div>
                                     </div>
-                                </NavLink>
+
                             </div>
                         )}
                         {/* Admin Login */}
