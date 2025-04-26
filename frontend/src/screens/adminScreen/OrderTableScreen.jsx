@@ -3,9 +3,11 @@ import {useState} from "react";
 import {motion} from "framer-motion";
 import { CiSearch } from "react-icons/ci";
 // import {assets} from "../../assets/assets";
+import {Link} from "react-router-dom";
 
 import CustomLoader from "../../components/CustomLoader";
-import {useGetAllProductsQuery} from "../../features/slices/productApiSlice";
+import {useGetAllOrdersQuery} from "../../features/slices/orderApiSlice";
+import {FaTimes} from "react-icons/fa";
 
 
 // const mockOrders = [
@@ -40,7 +42,7 @@ import {useGetAllProductsQuery} from "../../features/slices/productApiSlice";
 
 export default function OrderTableScreen() {
     const [searchTerm, setSearchTerm] = useState("");
-    const {data: orders, isLoading, isError} = useGetAllProductsQuery();
+    const {data: orders, isLoading, isError} = useGetAllOrdersQuery();
     const [filterOrders, setFilterOrders] = useState(orders);
 
     const handleSearch = (e) => {
@@ -51,7 +53,6 @@ export default function OrderTableScreen() {
 
         setFilterOrders(filtered);
     }
-
     return (
         <>
             {isLoading ? (
@@ -80,7 +81,7 @@ export default function OrderTableScreen() {
 
                     </div>
 
-                    <div className='overflow-x-auto'>
+                    <div className='overflow-x-auto scroll-auto'>
                         <table className='min-w-full divide-y divide-gray-700'>
                             <thead>
                             <tr>
@@ -133,11 +134,23 @@ export default function OrderTableScreen() {
                                     </td>
 
                                     <td className='px-6 py-4 whitespace-nowrap'>
-                                        <div className='text-sm text-gray-300'>{order.paid}</div>
+                                        <div className='text-sm text-gray-300'>
+                                            {order.isPaid ? (
+                                                order.paidAt.substring(0, 10)
+                                            ) : (
+                                                <FaTimes style={{ color: 'red' }} />
+                                            )}
+                                        </div>
                                     </td>
 
                                     <td className='px-6 py-4 whitespace-nowrap'>
-                                        <div className='text-sm text-gray-300'>{order.delivered}</div>
+                                        <div className='text-sm text-gray-300'>
+                                            {order.isDelivered ? (
+                                                order.isDelivered.substring(0, 10)
+                                            ) : (
+                                                <FaTimes style={{ color: 'red' }} />
+                                            )}
+                                        </div>
                                     </td>
 
 
@@ -150,8 +163,11 @@ export default function OrderTableScreen() {
 
 
                                     <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-                                        <button className='text-indigo-400 hover:text-indigo-300 mr-2'>Edit</button>
-                                        <button className='text-red-400 hover:text-red-300'>Delete</button>
+                                        <Link to={`/orders/${order._id}/summary`}>
+                                            <button className='text-indigo-400 hover:text-indigo-300 mr-2'>Details</button>
+                                        </Link>
+
+
                                     </td>
                                 </motion.tr>
                             ))}

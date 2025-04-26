@@ -1,21 +1,20 @@
 
 import React, {useState, useEffect} from "react";
 import {toast} from "react-toastify";
-import {useDispatch} from "react-redux";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import {useForgotPasswordMutation} from "../../features/slices/userApiSlice";
-
+import {useGetAllUsersQuery} from "../../features/slices/userApiSlice";
 
 export default function ForgotPasswordPage() {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const {search} = useLocation();
     const sp = new URLSearchParams(search);
     const redirect = sp.get("redirect") || "/";
 
     const [forgotPassword, isLoading] = useForgotPasswordMutation();
+    const {data: users} = useGetAllUsersQuery();
 
     useEffect(() => {
         setEmail(email);
@@ -25,10 +24,14 @@ export default function ForgotPasswordPage() {
     const onSubmitHandler = async (e) => {
         e.preventDefault()
         try {
-            await forgotPassword(email);
+            if (users) {
+                await forgotPassword(email);
 
-            toast.success("Sent Password reset instructions");
-            navigate("/");
+                toast.success("Sent Password reset instructions");
+                navigate("/");
+            } else {
+                toast.error("Email Account not found. Please try again");
+            }
         } catch (err) {
             toast.error(err?.response?.data?.message || err.message);
         }

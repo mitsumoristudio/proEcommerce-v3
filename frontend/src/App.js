@@ -21,6 +21,7 @@ import CardPaymentScreen from "./screens/CardPaymentScreen";
 import DummyPaypalCheckout from "./components/DummyPaypalCheckout";
 import VerifyEmailScreen from "./screens/authScreen/VerifyEmailScreen";
 import ForgotPasswordPage from "./screens/authScreen/ForgotPasswordPage";
+import ResetPasswordPage from "./screens/authScreen/ResetPasswordPage";
 
 import PrivateRoute from "./components/PrivateRoute";
 import {AdminRoute} from "./components/AdminRoute";
@@ -41,7 +42,7 @@ export default function App() {
               <Route path={"/dummyCheckout"} element={<DummyPaypalCheckout />} />
               <Route path={"/verifyEmail"} element={<VerifyEmailScreen />} />
               <Route path={"/forgotPassword"} element={<ForgotPasswordPage />} />
-
+              <Route path={"/resetPassword/:token"} element={<ResetPasswordPage />} />
 
               <Route path={"/products"} index={true} element={<ShoppingScreen/>} />
               <Route path={"/products/:id"} element={<ProductScreen />} />
