@@ -8,8 +8,8 @@ import ProductScreen from "./screens/ProductScreen";
 import CartSummaryScreen from "./screens/CartSummaryScreen";
 import CheckoutScreen from "./screens/CheckoutScreen";
 import OrderSummaryScreen from "./screens/OrderSummaryScreen";
-import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
+import LoginScreen from "./screens/authScreen/LoginScreen";
+import RegisterScreen from "./screens/authScreen/RegisterScreen";
 import AddReviewScreen from "./screens/AddReviewScreen";
 import AddProductScreen from "./screens/adminScreen/AddProductScreen";
 import UserTableScreen from "./screens/adminScreen/UserTableScreen";
@@ -19,6 +19,8 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import ProductEditScreen from "./screens/adminScreen/ProductEditScreen";
 import CardPaymentScreen from "./screens/CardPaymentScreen";
 import DummyPaypalCheckout from "./components/DummyPaypalCheckout";
+import VerifyEmailScreen from "./screens/authScreen/VerifyEmailScreen";
+import ForgotPasswordPage from "./screens/authScreen/ForgotPasswordPage";
 
 import PrivateRoute from "./components/PrivateRoute";
 import {AdminRoute} from "./components/AdminRoute";
@@ -37,6 +39,9 @@ export default function App() {
               <Route path={"/register"} element={<RegisterScreen />} />
               <Route path={"/login"} element={<LoginScreen />} />
               <Route path={"/dummyCheckout"} element={<DummyPaypalCheckout />} />
+              <Route path={"/verifyEmail"} element={<VerifyEmailScreen />} />
+              <Route path={"/forgotPassword"} element={<ForgotPasswordPage />} />
+
 
               <Route path={"/products"} index={true} element={<ShoppingScreen/>} />
               <Route path={"/products/:id"} element={<ProductScreen />} />

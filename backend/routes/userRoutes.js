@@ -1,8 +1,10 @@
 import express from 'express';
 import {protectRoute, admin} from "../middleware/authMiddleware.js";
 
-import {authUser, registerUser, logoutUser, getUserProfile, updateUserProfile, getAllUsers,
-deleteUser, getUserDetails, updateUser} from "../controllers/userController.js";
+import {
+    authUser, registerUser, logoutUser, getUserProfile, updateUserProfile, getAllUsers,
+    deleteUser, getUserDetails, updateUser, verifyEmail, forgotPassword, resetPassword,
+} from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -11,6 +13,9 @@ router.route("/").post(registerUser);
 router.route("/").get(protectRoute, getAllUsers);
 router.post("/logout", logoutUser);
 router.post("/login", authUser);
+router.post("/verifyEmail", verifyEmail)
+router.post("/forgotPassword", forgotPassword);
+router.post("resetPassword/:token", resetPassword);
 
 router.route("/profile").get(protectRoute, getUserProfile);
 router.route("/profile").put(protectRoute, updateUserProfile);
