@@ -130,7 +130,7 @@ export default function OrderTableScreen() {
                                     </td>
 
                                     <td className='px-6 py-4 whitespace-nowrap'>
-                                        <div className='text-sm text-gray-300'>{order.totalPrice}</div>
+                                        <div className='text-sm font-semibold text-gray-300'>${order.totalPrice}</div>
                                     </td>
 
                                     <td className='px-6 py-4 whitespace-nowrap'>
