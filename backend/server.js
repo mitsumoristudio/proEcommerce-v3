@@ -9,6 +9,13 @@ import productRoutes from "../backend/routes/productRoutes.js";
 import ordersRoutes from "../backend/routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import path from "path";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import {sanitize} from "express-mongo-sanitize";
+import {sanitizeFilter} from "mongoose";
+
+
+
 
 dotenv.config();
 
@@ -18,6 +25,19 @@ const PORT = process.env.PORT || 5002;
 // Connect to MongooseDB
 connectToMongodb();
 
+// Rate Limit Your Endpoint
+const rateLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: "draft-8",
+    legacyHeaders: false,
+})
+// Apply the rate limiting middleware to all requests
+app.use(rateLimiter);
+
+// Help secure Express apps by setting HTTP response headers
+app.use(helmet());
+
 // app.use(cors());
 
 // Body Parser Middleware
@@ -26,6 +46,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Cookie Parser Middleware
 app.use(cookieParser());
+
+// Sanitize Recieved Data
+// app.use(sanitizeFilter)
 
 app.get("/", (req, res) => {
     res.send("API is running...")

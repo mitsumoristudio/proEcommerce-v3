@@ -108,6 +108,11 @@ export default function TopNavBar() {
                                                        Profile
                                                     </NavLink>
 
+                                                    <NavLink className={"hover:text-blue-500"} to={"/myOrders"}>
+                                                        My Orders
+                                                    </NavLink>
+
+
                                                     <NavLink
                                                         className={"hover:text-blue-500"}
                                                         to={"/logout"}

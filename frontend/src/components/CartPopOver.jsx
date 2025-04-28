@@ -5,6 +5,7 @@ import {Popover, PopoverButton, PopoverPanel} from "@headlessui/react";
 import {assets} from "../assets/assets";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 
 // const mockShopping = [
@@ -120,12 +121,15 @@ export default function CartPopOver() {
                                 )
                             })}
                         </ul>
-                        <button type={"submit"}
-                        className={"w-full rounded-md border border-transparent bg-emerald-700 text-white px-4 py-2 text-md font-medium shadow-sm" +
-                            "hover: bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50"}
-                        >
-                        Checkout
-                        </button>
+
+                        <Link to={"/checkout"}>
+                            <button type={"submit"}
+                            className={"w-full rounded-md border border-transparent bg-emerald-700 text-white px-4 py-2 text-md font-medium shadow-sm" +
+                                "hover: bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50"}
+                            >
+                            Checkout
+                            </button>
+                        </Link>
 
                         <p className={"mt-6 text-center"}>
                             <a href={"/cart"}

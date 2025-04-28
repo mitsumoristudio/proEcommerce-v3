@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {toast} from "react-toastify";
 import { useLocation, useNavigate} from "react-router-dom";
 import {useForgotPasswordMutation} from "../../features/slices/userApiSlice";
@@ -13,19 +13,15 @@ export default function ForgotPasswordPage() {
     const sp = new URLSearchParams(search);
     const redirect = sp.get("redirect") || "/";
 
-    const [forgotPassword, isLoading] = useForgotPasswordMutation();
+    const [forgotPassword, {isLoading}] = useForgotPasswordMutation();
     const {data: users} = useGetAllUsersQuery();
-
-    useEffect(() => {
-        setEmail(email);
-
-    }, [ email]);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault()
+        const foundUser = await users.find(user => user.email === email)
         try {
-            if (users) {
-                await forgotPassword(email);
+            if (foundUser) {
+                await forgotPassword({email});
 
                 toast.success("Sent Password reset instructions");
                 navigate("/");

@@ -10,7 +10,10 @@ const router = express.Router();
 
 router.route("/").post(registerUser);
 // router.route("/").get(protectRoute, admin, getAllUsers);
-router.route("/").get(protectRoute, getAllUsers);
+//router.route("/").get(protectRoute, getAllUsers);
+// route is not protected in order to get access to use forgot password to check if there is a user.
+
+router.route("/").get(getAllUsers);
 router.post("/logout", logoutUser);
 router.post("/login", authUser);
 router.post("/verifyEmail", verifyEmail)

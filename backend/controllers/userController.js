@@ -10,7 +10,6 @@ import {
     sendWelcomeEmail
 } from "../mailtrap/email.js"
 
-
 // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
@@ -247,12 +246,12 @@ export const forgotPassword = asyncHandler(async (req, res) => {
             const resetPasswordToken = Math.random().toString(36).substring(2, 16);
 
             // send email
-            await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/resetPassword/${resetPasswordToken}` )
+            await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/resetPassword/${token}` )
 
             res.status(200).json({ success: true, message: "Password reset link sent to your email" });
 
         } else {
-            res.status(400).json({message: "User not found"});
+            res.status(400).json({message: "User not found. Please try again"});
         }
     } catch (error) {
         console.log("Error in forgotPassword ", error);
