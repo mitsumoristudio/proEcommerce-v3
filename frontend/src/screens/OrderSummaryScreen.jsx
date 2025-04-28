@@ -1,67 +1,72 @@
 import React from 'react';
 import {assets} from "../assets/assets";
+import {useGetOrderDetailsQuery} from "../features/slices/orderApiSlice";
+import {useParams} from "react-router-dom";
 
-const mockShopping = [
-    {
-        _id: '1',
-        name: 'Wooden Designer Chair',
-        image: assets.chair1,
-        description:
-            'Contemporary wooden chair. Designed in Japan',
-        brand: 'DWR',
-        category: 'Furniture',
-        price: 489.99,
-        countInStock: 12,
-        rating: 4.5,
-        numReviews: 38,
-    },
-    {
-        _id: '2',
-        name: 'Grey Comfortable Arm Chair',
-        image: assets.grey_comportable_armchair,
-        description:
-            'The Emmy speaks to multiple generations,” says Beamer. “Youthful yet mature, it resonates with a sense of modernism' +
-            ' and tradition. It’s a place to feel at home.” Made in U.S.A.',
-        brand: 'Emma Chair',
-        category: 'Furniture',
-        price: 599.99,
-        countInStock: 7,
-        rating: 4.0,
-        numReviews: 40,
-    },
-    {
-        _id: '3',
-        name: 'Grey Lounge Sofa',
-        image: assets.grey_sofa_isolated,
-        description:
-            'Charles and Ray Eames had ideas about making a better world, one in which things were designed to ' +
-            'fulfill the practical needs of ordinary people and bring greater pleasure to our lives. Their Soft Pad ' +
-            'Collection (1969) of luxuriously padded chairs evolved from their Aluminum Group Collection. With the addition ' +
-            'of plush 2” thick cushions, the Soft Pad Collection retains the style of the earlier one but adds ' +
-            'significant comfort. Backed by a 12-year manufacturer’s warranty.',
-        brand: 'Emma Chair',
-        category: 'Furniture',
-        price: 3299.99,
-        countInStock: 3,
-        rating: 2.0,
-        numReviews: 50,
-    },
-    {
-        _id: '4',
-        name: 'Modern Bedrooms',
-        image: assets.modern_bedroom,
-        description:
-            'Modern bedroom developed for creature comfort. Designed in Japan',
-        brand: 'Herman Miller',
-        category: 'Furniture',
-        price: 1299.99,
-        countInStock:22,
-        rating: 4.0,
-        numReviews: 10,
-    },
-]
+// const mockShopping = [
+//     {
+//         _id: '1',
+//         name: 'Wooden Designer Chair',
+//         image: assets.chair1,
+//         description:
+//             'Contemporary wooden chair. Designed in Japan',
+//         brand: 'DWR',
+//         category: 'Furniture',
+//         price: 489.99,
+//         countInStock: 12,
+//         rating: 4.5,
+//         numReviews: 38,
+//     },
+//     {
+//         _id: '2',
+//         name: 'Grey Comfortable Arm Chair',
+//         image: assets.grey_comportable_armchair,
+//         description:
+//             'The Emmy speaks to multiple generations,” says Beamer. “Youthful yet mature, it resonates with a sense of modernism' +
+//             ' and tradition. It’s a place to feel at home.” Made in U.S.A.',
+//         brand: 'Emma Chair',
+//         category: 'Furniture',
+//         price: 599.99,
+//         countInStock: 7,
+//         rating: 4.0,
+//         numReviews: 40,
+//     },
+//     {
+//         _id: '3',
+//         name: 'Grey Lounge Sofa',
+//         image: assets.grey_sofa_isolated,
+//         description:
+//             'Charles and Ray Eames had ideas about making a better world, one in which things were designed to ' +
+//             'fulfill the practical needs of ordinary people and bring greater pleasure to our lives. Their Soft Pad ' +
+//             'Collection (1969) of luxuriously padded chairs evolved from their Aluminum Group Collection. With the addition ' +
+//             'of plush 2” thick cushions, the Soft Pad Collection retains the style of the earlier one but adds ' +
+//             'significant comfort. Backed by a 12-year manufacturer’s warranty.',
+//         brand: 'Emma Chair',
+//         category: 'Furniture',
+//         price: 3299.99,
+//         countInStock: 3,
+//         rating: 2.0,
+//         numReviews: 50,
+//     },
+//     {
+//         _id: '4',
+//         name: 'Modern Bedrooms',
+//         image: assets.modern_bedroom,
+//         description:
+//             'Modern bedroom developed for creature comfort. Designed in Japan',
+//         brand: 'Herman Miller',
+//         category: 'Furniture',
+//         price: 1299.99,
+//         countInStock:22,
+//         rating: 4.0,
+//         numReviews: 10,
+//     },
+// ]
 
 export default function OrderSummaryScreen() {
+    const { id: orderId} = useParams();
+    const { data: orders, isLoading, error, refetch } = useGetOrderDetailsQuery(orderId);
+
     return (
         <>
             <div className={"bg-white"}>
@@ -74,7 +79,7 @@ export default function OrderSummaryScreen() {
 
                         <dl className={"mt-10 text-sm font-medium"}>
                             <dt className={"text-gray-800 text-lg font-semibold"}>#Order Number</dt>
-                            <dd className={"mt-2 text-lg text-gray-800 font-semibold"}>Come back to it later #1220034</dd>
+                            <dd className={"mt-2 text-lg text-gray-800 font-semibold"}>{orders?._id}</dd>
                         </dl>
                     </div>
 
@@ -83,7 +88,7 @@ export default function OrderSummaryScreen() {
 
                         <h3 className={"sr-only"}>Items</h3>
 
-                        {mockShopping.map((product) => (
+                        {orders?.orderItems.map((product) => (
                             <div className={"flex border-b border-gray-400 py-10 space-x-6"} key={product._id}>
                                 <img
                                 alt={product.name}
@@ -96,13 +101,13 @@ export default function OrderSummaryScreen() {
                                         {product.name}
                                     </h4>
 
-                                    <p className={"mt-2 text-sm text-gray-600"}>{product.brand}</p>
+                                    <p className={"hidden mt-2 text-sm text-gray-600"}>{product.brand}</p>
 
                                     <div className={"mt-6 flex flex-1 items-end"}>
                                         <dl className={"flex divide-x divide-gray-300 text-sm"}>
                                             <div className={"flex pr-4 sm:pr-6"}>
                                                 <dt className={"font-medium text-gray-800"}>Quantity:</dt>
-                                                <dd className={"ml-2 text-gray-800"}>{product.countInStock}</dd>
+                                                <dd className={"ml-2 text-gray-800"}>{product.qty}</dd>
                                             </div>
                                             <div className={"flex pl-4 sm:pl-6"}>
                                                 <dt className={"font-medium text-gray-800"}>Price:</dt>
@@ -123,9 +128,18 @@ export default function OrderSummaryScreen() {
                                 <dt className={"font-medium text-lg text-gray-800"}>Shipping Address</dt>
                                 <dd className={"mt-2 text-gray-800"}>
                                     <address className={"mt-1"}>
-                                        <span className={"block"}>Mia Mitsumori</span>
-                                        <span className={"block"}>4924 Manassas Circle</span>
-                                        <span className={"block"}>Brentwood, TN 37027</span>
+                                        <div className={"flex flex-row justify-start gap-x-2"}>
+                                            <p className={" text-gray-800 items-center font-medium"}>{orders.shippingAddress.firstName}</p>
+                                            <p className={" text-gray-800 items-center font-semibold"}>{orders.shippingAddress.lastName}</p>
+                                        </div>
+                                        <p className={"text-gray-500 items-center font-semibold"}>{orders.shippingAddress.company}</p>
+                                        <p className={"text-gray-500 items-center font-semibold"}>{orders.shippingAddress.address}</p>
+                                        <p className={"text-gray-500 items-center font-semibold"}>{orders.shippingAddress.city}</p>
+
+                                        <div className={"flex flex-row justify-start gap-x-2"}>
+                                            <p className={"text-gray-500 items-center font-medium"}>{orders.shippingAddress.state},</p>
+                                            <p className={"text-gray-500 items-center font-medium"}>{orders.shippingAddress.postalCode}</p>
+                                        </div>
                                     </address>
 
                                 </dd>
@@ -143,23 +157,28 @@ export default function OrderSummaryScreen() {
 
                         <dl className={"space-y-6 border-t border-gray-400 pt-10 text-md"}>
                             <div className={"flex justify-between"}>
+                                <dt className={"font-medium text-gray-800"}>Payment Method</dt>
+                                <dd className={"text-gray-800 font-semibold"}>{orders.paymentMethod}</dd>
+                            </div>
+
+                            <div className={"flex justify-between"}>
                                 <dt className={"font-medium text-gray-800"}>Subtotal</dt>
-                                <dd className={"text-gray-800"}>$40.00</dd>
+                                <dd className={"text-gray-800"}>${orders.itemsPrice}</dd>
                             </div>
 
                             <div className={"flex justify-between"}>
                                 <dt className={"font-medium text-gray-800"}>Shipping</dt>
-                                <dd className={"text-gray-800"}>$6.00</dd>
+                                <dd className={"text-gray-800"}>${orders.shippingPrice}</dd>
                             </div>
 
                             <div className={"flex justify-between"}>
                                 <dt className={"font-medium text-gray-800"}>Taxes</dt>
-                                <dd className={"text-gray-800"}>$8.00</dd>
+                                <dd className={"text-gray-800"}>${orders.taxPrice}</dd>
                             </div>
 
                             <div className={"flex justify-between"}>
                                 <dt className={"font-bold text-lg text-gray-800"}>Total</dt>
-                                <dd className={"font-bold text-gray-800 text-lg"}>$54.00</dd>
+                                <dd className={"font-bold text-gray-800 text-lg"}>${orders.totalPrice}</dd>
                             </div>
                         </dl>
                     </div>

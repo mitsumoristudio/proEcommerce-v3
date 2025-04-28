@@ -124,6 +124,7 @@ export default function CardPaymentScreen() {
                                 {/* PAY ORDER PLACEHOLDER Add onClickHandler here*/}
                                 <div className={"py-2 my-4 mb-2"}>
                                     <button
+                                        onClick={deliveredOrderHandler}
                                         className={"w-60 h-12 ml-4 bg-blue-600 rounded-lg text-white items-center shadow-md cursor-pointer hover:transition-all scale-105 duration-500"}>
                                         Test Pay Order
                                     </button>
