@@ -11,10 +11,8 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import path from "path";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import {sanitize} from "express-mongo-sanitize";
-import {sanitizeFilter} from "mongoose";
-
-
+//import {sanitize} from "express-mongo-sanitize";
+//import {sanitizeFilter} from "mongoose";
 
 
 dotenv.config();
@@ -34,6 +32,7 @@ const rateLimiter = rateLimit({
 })
 // Apply the rate limiting middleware to all requests
 app.use(rateLimiter);
+app.set('trust proxy', 1 /* number of proxies between user and server */)
 
 // Help secure Express apps by setting HTTP response headers
 app.use(helmet());
@@ -73,8 +72,6 @@ app.get("/api/config/paypal", (req, res) =>
 // Set upload folder as static
 const __dirname = path.resolve(); // Set _dirname to current directory
 app.use(`/uploads`, express.static(path.join(__dirname, `../uploads`))); // changed the pathname because the root folder would not accept /uploads
-
-
 
 // Error Handler
 app.use(notFound);

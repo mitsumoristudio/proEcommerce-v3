@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 import {Radio, RadioGroup} from "@headlessui/react";
 import { ChevronDownIcon, CheckCircleIcon } from '@heroicons/react/16/solid'
-import {assets} from "../assets/assets";
+// import {assets} from "../assets/assets";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {saveShippingAddress} from "../features/slices/cartSlice";

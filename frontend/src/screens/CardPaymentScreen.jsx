@@ -9,7 +9,6 @@ import {useGetOrderDetailsQuery,
         useDeliverOrderMutation,
         useGetPayPalClientIdQuery} from "../features/slices/orderApiSlice";
 import {
-    PayPalScriptProvider,
     PayPalButtons,
     usePayPalScriptReducer
 } from "@paypal/react-paypal-js";

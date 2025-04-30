@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {ChevronDownIcon, StarIcon} from "@heroicons/react/16/solid";
 import {Field, Label, Textarea} from "@headlessui/react";

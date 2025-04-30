@@ -19,6 +19,8 @@ import brand_4 from "../assets/swiperbrands/brand_4.svg"
 import brand_5 from "../assets/swiperbrands/brand_5.svg"
 import brand_6 from "../assets/swiperbrands/brand_6.svg"
 import miaphoto from "../assets/miaphoto.jpeg"
+import fuji from "../assets/fuji.jpeg"
+import waikiki from "../assets/waikiki.jpeg"
 
 
 export const assets = {
@@ -36,6 +38,8 @@ export const assets = {
     modern_bedroom,
     single_double_beds,
     miaphoto,
+    fuji,
+    waikiki,
 
 }
 

@@ -72,7 +72,7 @@ export default function ProductReview({product}) {
                                 <div className="flex items-center">
                                     {product.review.map((rate) => (
                                         <StarIcon
-                                            key={"rateID"}
+                                            key={"rate_ID"}
                                             aria-hidden="true"
                                             className={classNames(
                                                 rate.rating > 0 ? 'text-yellow-400' : 'text-gray-300',
@@ -152,7 +152,7 @@ export default function ProductReview({product}) {
                         <div className="flow-root">
                             <div className="-my-12 divide-y divide-gray-200">
                                 {product.review.map((review) => (
-                                    <ul key={review.id} className="py-12">
+                                    <ul key={review._id} className="py-12">
                                         <div className="flex items-center">
                                             <div className='flex-shrink-0 h-10 w-10'>
                                                 <div

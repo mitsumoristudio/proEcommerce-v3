@@ -1,6 +1,6 @@
 
-import React, {useState, useEffect} from 'react'
-import {useNavigate, useParams} from "react-router-dom";
+
+import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useCreateOrderMutation} from "../features/slices/orderApiSlice";
 import CustomLoader from "../components/CustomLoader";
@@ -16,7 +16,7 @@ export default function PlaceOrderScreen() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [createOrder, {isLoading, error}] = useCreateOrderMutation();
+    const [createOrder, {isLoading, isError}] = useCreateOrderMutation();
 
     const placeOrderHandler = async () => {
         try {
@@ -39,6 +39,11 @@ export default function PlaceOrderScreen() {
     }
     return (
         <>
+            {isLoading ? (
+                <CustomLoader />
+            ) : isError ? (
+                <Message text={"Error"} />
+            ) : (
                 <section className={"bg-gray-100"}>
                     <div className={"p-1"}>
                         <div className={"mx-auto max-w-2xl px-4 pb-22 pt-16 sm:px-6 lg:max-w-7xl lg: px-8"}>
@@ -150,7 +155,7 @@ export default function PlaceOrderScreen() {
                         </div>
                     </div>
                 </section>
-
+            )}
         </>
     )
 }

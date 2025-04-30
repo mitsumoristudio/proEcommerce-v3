@@ -107,20 +107,33 @@ export default function MyOrdersScreen() {
                                     <td className='px-6 py-4 whitespace-nowrap'>
                                         <div className='text-sm text-gray-300'>
                                             {order.isPaid ? (
-                                                order.paidAt.substring(0, 10)
+                                                order.paidAt.toLocaleString(0,2)
                                             ) : (
-                                                <FaTimes style={{ color: 'red' }} />
+                                                <FaTimes style={{color: "red"}}></FaTimes>
                                             )}
+
+                                            {/*{order.isPaid ? (*/}
+                                            {/*    order.paidAt.substring(0, 10)*/}
+                                            {/*) : (*/}
+                                            {/*    <FaTimes style={{ color: 'red' }} />*/}
+                                            {/*)}*/}
                                         </div>
                                     </td>
 
                                     <td className='px-6 py-4 whitespace-nowrap'>
                                         <div className='text-sm text-gray-300'>
                                             {order.isDelivered ? (
-                                                order.isDelivered.substring(0, 10)
+                                                order.isDelivered.toLocaleString(0,2)
                                             ) : (
-                                                <FaTimes style={{ color: 'red' }} />
+                                                <FaTimes style={{color: "red"}}></FaTimes>
                                             )}
+
+
+                                            {/*{order.isDelivered ? (*/}
+                                            {/*    order.isDelivered.substring(0, 10)*/}
+                                            {/*) : (*/}
+                                            {/*    <FaTimes style={{ color: 'red' }} />*/}
+                                            {/*)}*/}
                                         </div>
                                     </td>
 

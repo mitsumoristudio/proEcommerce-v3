@@ -23,9 +23,13 @@ import VerifyEmailScreen from "./screens/authScreen/VerifyEmailScreen";
 import ForgotPasswordPage from "./screens/authScreen/ForgotPasswordPage";
 import ResetPasswordPage from "./screens/authScreen/ResetPasswordPage";
 import MyOrdersScreen from "./screens/MyOrdersScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import AboutUsScreen from "./screens/AboutUsScreen";
+import ContactUsScreen from "./screens/ContactScreen";
 
 import PrivateRoute from "./components/PrivateRoute";
 import {AdminRoute} from "./components/AdminRoute";
+import ContactScreen from "./screens/ContactScreen";
 
 
 export default function App() {
@@ -45,6 +49,9 @@ export default function App() {
               <Route path={"/forgotPassword"} element={<ForgotPasswordPage />} />
               <Route path={"/resetPassword/:token"} element={<ResetPasswordPage />} />
               <Route path={"/myOrders"} element={<MyOrdersScreen />} />
+              <Route path={"/profile"} element={<SettingsScreen />} />
+              <Route path={"/aboutUs"} element={<AboutUsScreen />} />
+              <Route path={"/contactUs"} element={<ContactScreen />} />
 
               <Route path={"/products"} index={true} element={<ShoppingScreen/>} />
               <Route path={"/products/:id"} element={<ProductScreen />} />

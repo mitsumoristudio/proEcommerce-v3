@@ -5,12 +5,11 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductCard({products}) {
-
+export default function Product({product}) {
     return (
-        <div className="-mx-px grid grid-cols-2 border-spacing-1 border-gray-200 sm: mx-0 md: grid-cols-3 lg: grid-cols-4">
-            {products.map((product)=> (
-                <div key={product.id} className="group relative border-b border-r border-gray-200 p-4 sm:p-6">
+        <div
+            className="-mx-px grid grid-cols-2 border-spacing-1 border-gray-200 sm: mx-0 md: grid-cols-3 lg: grid-cols-4">
+                <div key={product._id} className="group relative border-b border-r border-gray-200 p-4 sm:p-6">
                     <img
                         alt={product.name}
                         src={product.image}
@@ -49,8 +48,7 @@ export default function ProductCard({products}) {
                         <p className={"mt-4 text-base font-medium text-gray-800"}>${product.price}</p>
                     </div>
                 </div>
-            ))}
+            )
         </div>
     )
-
 }

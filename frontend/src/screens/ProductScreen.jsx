@@ -207,7 +207,7 @@ export default function ProductScreen() {
                             <div
                                 className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
                                 {relatedProducts.map((product) => (
-                                    <div key={product.id}>
+                                    <div key={product._id}>
                                         <div className="relative">
                                             <div className="relative h-72 w-full overflow-hidden rounded-lg cursor-pointer">
                                                 <img alt={product.imageAlt} src={product.imageSrc}

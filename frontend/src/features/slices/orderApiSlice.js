@@ -46,7 +46,7 @@ export const orderApiSlice = apiSlice.injectEndpoints({
                 method: "GET",
             }),
             keepUnusedDataFor: 5,
-            providesTags: ["Orders"],
+            providesTags: ["Order"],
         }),
         deliverOrder: builder.mutation({
             query: (orderId) => ({

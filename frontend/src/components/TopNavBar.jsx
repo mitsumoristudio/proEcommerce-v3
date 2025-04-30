@@ -50,7 +50,7 @@ export default function TopNavBar() {
                     </div>
 
                     {/* NavBar TabView HOME STORE CONTACT ABOUT */}
-                    <ul className={"hidden md:flex items-start gap-6 font-medium justify-start"}>
+                    <ul className={"hidden md:flex items-start gap-16 font-medium justify-start"}>
                         <NavLink to={"/"}>
                             <li className={"py-2 md: text-md lg: text-lg xl: text-xl hover:text-blue-500"}>HOME</li>
                             <hr className={'border-b outline-none h-0.5 w-3/5 m-auto hidden '}/>
@@ -61,12 +61,12 @@ export default function TopNavBar() {
                             <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                         </NavLink>
 
-                        <NavLink to={"/contact"}>
+                        <NavLink to={"/contactUs"}>
                             <li className={"py-2 md: text-md lg: text-lg xl: text-xl hover:text-blue-500"}>CONTACT</li>
                             <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                         </NavLink>
 
-                        <NavLink to={"/about"}>
+                        <NavLink to={"/aboutUs"}>
                             <li className={"py-2 md: text-md lg: text-lg xl: text-xl hover:text-blue-500"}>ABOUT</li>
                             <hr className={'border-b outline-none h-0.5 bg-primary w-3/5 m-auto hidden'}/>
                         </NavLink>
@@ -104,7 +104,7 @@ export default function TopNavBar() {
                                         <div
                                             className={"absolute top-0 right-0 pt-16 text-base font-medium text-gray-800 z-20 hidden group-hover:block"}>
                                             <div className={"min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-3"}>
-                                                    <NavLink className={"hover:text-blue-500"} to={"/admin/profile"}>
+                                                    <NavLink className={"hover:text-blue-500"} to={"/profile"}>
                                                        Profile
                                                     </NavLink>
 
