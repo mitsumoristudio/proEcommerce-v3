@@ -3,6 +3,8 @@ import {asyncHandler} from "../middleware/asyncHandler.js";
 import OrdersModels from "../models/OrdersModels.js";
 import ProductModels from "../models/ProductModels.js";
 import {calcPrices} from "../utils/calcPrices.js";
+// import {async} from "express-mongo-sanitize";
+import {verifyPayPalPayment, checkIfNewTransaction} from "../utils/paypal.js";
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -109,17 +111,24 @@ export const getOrderById = asyncHandler(async (req, res) => {
         throw new Error('User not found');
     }
 
-
-
     //  res.send("Get Order by ID");
 });
 
-// @desc    Update order to paid
-// @route   PUT/api/orders/:id/pay
-// @access  Private PAYPAL
 export const updateOrderToPaid = asyncHandler(async (req, res) => {
+    const { verified, value } = await verifyPayPalPayment(req.body.id);
+    if (!verified) throw new Error('Payment not verified');
+
+    // check if this transaction has been used before
+    const isNewTransaction = await checkIfNewTransaction(OrdersModels, req.body.id);
+    if (!isNewTransaction) throw new Error('Transaction has been used before');
+
     const order = await OrdersModels.findById(req.params.id);
+
     if (order) {
+        // check the correct amount was paid
+        const paidCorrectAmount = order.totalPrice.toString() === value;
+        if (!paidCorrectAmount) throw new Error('Incorrect amount paid');
+
         order.isPaid = true;
         order.paidAt = Date.now();
         order.paymentResult = {
@@ -131,13 +140,38 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 
         const updatedOrder = await order.save();
 
-        res.status(200).json(updatedOrder);
+        res.json(updatedOrder);
     } else {
-        res.status(404)
+        res.status(404);
         throw new Error('Order not found');
     }
-    //  res.send("update Order to Paid");
 })
+
+// Prior to adding Paypal verification
+// @desc    Update order to paid
+// @route   PUT/api/orders/:id/pay
+// @access  Private PAYPAL
+// export const updateOrderToPaid = asyncHandler(async (req, res) => {
+//     const order = await OrdersModels.findById(req.params.id);
+//     if (order) {
+//         order.isPaid = true;
+//         order.paidAt = Date.now();
+//         order.paymentResult = {
+//             id: req.body.id,
+//             status: req.body.status,
+//             update_time: req.body.update_time,
+//             email_address: req.body.payer.email_address,
+//         };
+//
+//         const updatedOrder = await order.save();
+//
+//         res.status(200).json(updatedOrder);
+//     } else {
+//         res.status(404)
+//         throw new Error('Order not found');
+//     }
+//     //  res.send("update Order to Paid");
+// })
 
 // @desc    Update order to delivered
 // @route   PUT /api/orders/:id/deliver
