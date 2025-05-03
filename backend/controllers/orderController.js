@@ -6,44 +6,92 @@ import {calcPrices} from "../utils/calcPrices.js";
 // import {async} from "express-mongo-sanitize";
 import {verifyPayPalPayment, checkIfNewTransaction} from "../utils/paypal.js";
 
+// Prior to adding Paypal integration
 // @desc    Create new order
 // @route   POST /api/orders
 // @access  Private
+// export const addOrderItems = asyncHandler(async (req, res) => {
+//     const {
+//         orderItems,
+//         shippingAddress,
+//         paymentMethod,
+//         itemsPrice,
+//         taxPrice,
+//         shippingPrice,
+//         totalPrice,
+//     } = req.body;
+//
+//     if (orderItems && orderItems.length === 0) {
+//         res.status(400);
+//         throw new Error('No order items');
+//     } else {
+//         const order = new OrdersModels({
+//             orderItems: orderItems.map((x) => ({
+//                 ...x,
+//                 product: x._id,
+//                 _id: undefined,
+//             })),
+//             user: req.user._id,
+//             shippingAddress: shippingAddress,
+//             paymentMethod: paymentMethod,
+//             itemsPrice: itemsPrice,
+//             taxPrice: taxPrice,
+//             shippingPrice: shippingPrice,
+//             totalPrice: totalPrice,
+//         });
+//
+//         const createdOrder = await order.save();
+//
+//         res.status(201).json(createdOrder);
+//     }
+// });
+
 export const addOrderItems = asyncHandler(async (req, res) => {
-    const {
-        orderItems,
-        shippingAddress,
-        paymentMethod,
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-    } = req.body;
+    const { orderItems, shippingAddress, paymentMethod } = req.body;
 
     if (orderItems && orderItems.length === 0) {
         res.status(400);
         throw new Error('No order items');
     } else {
-        const order = new OrdersModels({
-            orderItems: orderItems.map((x) => ({
-                ...x,
-                product: x._id,
+        // get the ordered items from our database
+        const itemsFromDB = await ProductModels.find({
+            _id: { $in: orderItems.map((x) => x._id) },
+        });
+
+        // map over the order items and use the price from our items from database
+        const dbOrderItems = orderItems.map((itemFromClient) => {
+            const matchingItemFromDB = itemsFromDB.find(
+                (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id
+            );
+            return {
+                ...itemFromClient,
+                product: itemFromClient._id,
+                price: matchingItemFromDB.price,
                 _id: undefined,
-            })),
+            };
+        });
+
+        // calculate prices
+        const { itemsPrice, taxPrice, shippingPrice, totalPrice } =
+            calcPrices(dbOrderItems);
+
+        const order = new OrdersModels({
+            orderItems: dbOrderItems,
             user: req.user._id,
-            shippingAddress: shippingAddress,
-            paymentMethod: paymentMethod,
-            itemsPrice: itemsPrice,
-            taxPrice: taxPrice,
-            shippingPrice: shippingPrice,
-            totalPrice: totalPrice,
+            shippingAddress,
+            paymentMethod,
+            itemsPrice,
+            taxPrice,
+            shippingPrice,
+            totalPrice,
         });
 
         const createdOrder = await order.save();
 
         res.status(201).json(createdOrder);
     }
-});
+})
+
 
 export const protectAddOrderItems = asyncHandler(async (req, res) => {
     const {orderItems, shippingAddress, paymentMethod} = req.body;
