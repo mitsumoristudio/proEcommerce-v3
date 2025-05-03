@@ -4,8 +4,23 @@
   "description": "Ecommerce Application",
   "main": "server.js",
   "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "analyze": "npm run build && npx webpack-bundle-analyzer build/static/js/*.js",
+    "data:import": "node seeder.js",
+    "data:destroy": "node seeder -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "SM",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.1",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }
