@@ -27,12 +27,12 @@ connectToMongodb();
 
 // Cannot find oackage express-rate-limit
  // Rate Limit Your Endpoint
-// const rateLimiter = rateLimit({
-//     windowMs: 15 * 60 * 1000,
-//     limit: 500,
-//     standardHeaders: "draft-8",
-//     legacyHeaders: false,
-// })
+const rateLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 500,
+    standardHeaders: "draft-8",
+    legacyHeaders: false,
+})
 // // Apply the rate limiting middleware to all requests
 app.use(rateLimiter);
 app.set('trust proxy', 1 /* number of proxies between user and server */)
