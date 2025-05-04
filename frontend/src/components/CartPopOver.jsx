@@ -1,13 +1,13 @@
 
 import React from 'react';
-import {ShoppingBagIcon, CheckIcon} from "@heroicons/react/20/solid";
+import { CheckIcon} from "@heroicons/react/20/solid";
 import {Popover, PopoverButton, PopoverPanel} from "@headlessui/react";
-import {assets} from "../assets/assets";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
+// import {assets} from "../assets/assets";
 
-
+// Mock Shopping List
 // const mockShopping = [
 //     {
 //         _id: '1',
@@ -122,14 +122,15 @@ export default function CartPopOver() {
                             })}
                         </ul>
 
-                        <Link to={"/checkout"}>
+
                             <button type={"submit"}
+                                    onClick={checkoutHandler}
                             className={"w-full rounded-md border border-transparent bg-emerald-700 text-white px-4 py-2 text-md font-medium shadow-sm" +
                                 "hover: bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50"}
                             >
                             Checkout
                             </button>
-                        </Link>
+
 
                         <p className={"mt-6 text-center"}>
                             <a href={"/cart"}

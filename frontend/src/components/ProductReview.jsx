@@ -1,33 +1,34 @@
 
 import {StarIcon} from "@heroicons/react/20/solid";
 import React, {useState} from "react";
-import {assets} from "../assets/assets";
 import {Link, useParams} from "react-router-dom";
 import {useCreateReviewMutation, useGetProductDetailsByIdQuery} from "../features/slices/productApiSlice";
 import {toast} from "react-toastify";
 
-const reviews = {
-    average: 4,
-    totalCount: 6,
-    counts: [
-        { rating: 5, count: 1019 },
-        { rating: 4, count: 162 },
-        { rating: 3, count: 97 },
-        { rating: 2, count: 199 },
-        { rating: 1, count: 147 },
-    ],
-    featured: [
-        {
-            id: 1,
-            rating: 5,
-            content: `
-        <p>This is the bag of my dreams. I took it on my last vacation and was able to fit an absurd amount of snacks for the many long and hungry flights.</p>
-      `,
-            author: 'Mia Mitsumori',
-            avatarSrc: assets.miaphoto,
-        },
-    ],
-}
+// import {assets} from "../assets/assets";
+// Mock Review
+// const mockreviews = {
+//     average: 4,
+//     totalCount: 6,
+//     counts: [
+//         { rating: 5, count: 1019 },
+//         { rating: 4, count: 162 },
+//         { rating: 3, count: 97 },
+//         { rating: 2, count: 199 },
+//         { rating: 1, count: 147 },
+//     ],
+//     featured: [
+//         {
+//             id: 1,
+//             rating: 5,
+//             content: `
+//         <p>This is the bag of my dreams. I took it on my last vacation and was able to fit an absurd amount of snacks for the many long and hungry flights.</p>
+//       `,
+//             author: 'Mia Mitsumori',
+//             avatarSrc: assets.miaphoto,
+//         },
+//     ],
+// }
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')

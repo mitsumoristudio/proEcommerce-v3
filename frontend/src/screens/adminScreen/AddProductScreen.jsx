@@ -1,10 +1,9 @@
 
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {toast} from "react-toastify";
 import {Link, useNavigate,} from "react-router-dom";
 import {Field, Label, Textarea} from "@headlessui/react";
-import CustomLoader from "../../components/CustomLoader";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {useCreateProductMutation,useUploadProductImageMutation} from "../../features/slices/productApiSlice";
 
 export default function AddProductScreen() {
@@ -17,21 +16,20 @@ export default function AddProductScreen() {
     const [category, setCategory] = useState("")
     const [description, setDescription] = useState("")
 
-    const [createProduct, isLoading] =useCreateProductMutation();
-    const [uploadProductImage, {isLoading: loadingUploadImage }] = useUploadProductImageMutation();
+    const [createProduct, refetch] =useCreateProductMutation();
+    const [uploadProductImage] = useUploadProductImageMutation();
 
     const {userInfo} = useSelector((state) => state.auth);
     const usersID =userInfo.user;
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const uploadImageHandler = async (e) => {
         const formData = new FormData();
         formData.append("image", e.target.files[0]);
         try {
             const res = await uploadProductImage(formData).unwrap()
-            toast.success("Image uploaded successfully.");
+            toast("Uploaded image")
 
             setImage(res.image)
         } catch (error) {
@@ -54,9 +52,9 @@ export default function AddProductScreen() {
                 numReviews: Number(0),
             }).unwrap();
 
-            toast.success("Product Added Successfully.");
-
+            refetch();
             navigate("/")
+            toast("Image was uploaded successfully.")
         } catch (error) {
             toast.error(error?.data?.message || error.error)
         }

@@ -1,13 +1,13 @@
 
 import React, {useState, useEffect} from 'react'
-import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, } from "react-router-dom";
 import {toast} from "react-toastify";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import {useResetPasswordMutation} from "../../features/slices/userApiSlice";
 import {useGetAllUsersQuery} from "../../features/slices/userApiSlice";
 
 export default function ResetPasswordPage() {
-    const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const {userInfo} = useSelector((state) => state.auth);
     const {data: users} = useGetAllUsersQuery();
@@ -15,7 +15,7 @@ export default function ResetPasswordPage() {
     const {search} = useLocation();
     const sp = new URLSearchParams(search);
     const redirect = sp.get("redirect") || "/";
-    const {resetPassword, isLoading, error} = useResetPasswordMutation();
+    const {resetPassword} = useResetPasswordMutation();
 
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')

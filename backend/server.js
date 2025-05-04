@@ -9,7 +9,7 @@ import productRoutes from "../backend/routes/productRoutes.js";
 import ordersRoutes from "../backend/routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import path from "path";
-import rateLimit from "express-rate-limit";
+import { rateLimit } from 'express-rate-limit'
 import helmet from "helmet";
 //import {sanitize} from "express-mongo-sanitize";
 //import {sanitizeFilter} from "mongoose";

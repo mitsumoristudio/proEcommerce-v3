@@ -13,7 +13,7 @@ export default function ForgotPasswordPage() {
     const sp = new URLSearchParams(search);
     const redirect = sp.get("redirect") || "/";
 
-    const [forgotPassword, {isLoading}] = useForgotPasswordMutation();
+    const [forgotPassword] = useForgotPasswordMutation();
     const {data: users} = useGetAllUsersQuery();
 
     const onSubmitHandler = async (e) => {
@@ -22,8 +22,9 @@ export default function ForgotPasswordPage() {
         try {
             if (foundUser) {
                 await forgotPassword({email});
-
                 toast.success("Sent Password reset instructions");
+
+                redirect();
                 navigate("/");
             } else {
                 toast.error("Email Account not found. Please try again");

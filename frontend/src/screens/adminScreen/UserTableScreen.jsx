@@ -48,7 +48,8 @@ export default function UserTableScreen() {
                 <CustomLoader />
             ) : isError ? (
                 <div>{isError?.data?.message || isError.error}</div>
-            ) : (
+            ) : loadingDelete ?
+                (<CustomLoader />) :
                 <motion.div
                     className='mx-4 bg-gray-800 bg-opacity-80 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-600 mt-6 px-4 py-2'
                     initial={{opacity: 0, y: 20}}
@@ -151,7 +152,8 @@ export default function UserTableScreen() {
                         </table>
                     </div>
                 </motion.div>
-            )}
+            }
+            )
 
         </>
     )

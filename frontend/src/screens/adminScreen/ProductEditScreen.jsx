@@ -4,6 +4,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {useUpdateProductMutation, useGetProductDetailsByIdQuery, useUploadProductImageMutation} from "../../features/slices/productApiSlice";
 import {Field, Label, Textarea} from "@headlessui/react";
 
+
 export default function ProductEditScreen() {
     const {id: productId} = useParams();
 
@@ -15,9 +16,9 @@ export default function ProductEditScreen() {
     const [countInStock, setCountInStock] = useState(0);
     const [description, setDescription] = useState("");
 
-    const { data: product, isLoading, refetch, error } = useGetProductDetailsByIdQuery(productId);
-    const [updateProduct, {isLoading: loadingUpdate}] = useUpdateProductMutation();
-    const [ updateProductImage, {isLoading: loadingUpdateImage}] = useUploadProductImageMutation();
+    const { data: product, refetch, } = useGetProductDetailsByIdQuery(productId);
+    const [updateProduct, ] = useUpdateProductMutation();
+    const [ updateProductImage, ] = useUploadProductImageMutation();
 
     const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ export default function ProductEditScreen() {
         formData.append('image', e.target.files[0]);
         try {
             const res = await updateProductImage(formData).unwrap();
-            toast.success("Image uploaded successfully.");
+            toast("Image uploaded successfully.")
 
             setImage(res.image)
         } catch (error) {
@@ -48,9 +49,10 @@ export default function ProductEditScreen() {
                 description: description,
                 countInStock: countInStock,
             }).unwrap();
-            toast.success("Product updated successfully.");
+
             refetch();
             navigate("/");
+            toast.success("Product updated successfully.");
         } catch (err) {
             toast.error(err?.data?.message || err.error);
         }
@@ -74,7 +76,7 @@ export default function ProductEditScreen() {
                   onSubmit={onSubmitHandler}
             >
                 <div
-                    className={"flex flex-col gap-3 m-auto items-start p-8 min-w-[460px] sm: min-w-280 border rounded-xl\ " +
+                    className={"flex flex-col gap-3 m-auto items-start p-8 min-w-[460px] sm: min-w-280 border rounded-xl " +
                         "text-zinc-700 text-sm shadow-lg "}
                 >
                     <h1 className={"text-2xl font-semibold text-center text-gray-800"}>

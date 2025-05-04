@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import {useParams, Link} from "react-router-dom";
-import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import CustomLoader from "../components/CustomLoader";
 import {Message} from "../components/Message";
@@ -12,6 +11,7 @@ import {
     PayPalButtons,
     usePayPalScriptReducer
 } from "@paypal/react-paypal-js";
+// import {useSelector} from "react-redux";
 
 
 export default function CardPaymentScreen() {
@@ -19,15 +19,14 @@ export default function CardPaymentScreen() {
 
     const { data: order, isLoading, error, refetch } = useGetOrderDetailsQuery(orderId);
 
-    const [payOrder, {isLoading: loadingPay }] = usePayOrderMutation();
+    const [payOrder] = usePayOrderMutation();
 
-    const [{ isPending }, paypalDispatch ] = usePayPalScriptReducer()
+    const [
+        paypalDispatch ] = usePayPalScriptReducer()
 
     const { data: paypal, isLoading: loadingPaypal, error: errorPaypal} = useGetPayPalClientIdQuery();
 
-    const [deliverOrder, {isLoading: loadingDeliver }] = useDeliverOrderMutation();
-
-    const {userInfo} = useSelector((state) => state.auth);
+    const [deliverOrder, ] = useDeliverOrderMutation();
 
     const deliveredOrderHandler = async () => {
         try {
@@ -79,9 +78,11 @@ export default function CardPaymentScreen() {
         refetch();
         toast.success("Payment was successfully approved.");
     }
-    function onError(err) {
-        toast.error(err.message);
-    }
+
+    // function onError(err) {
+    //     toast.error(err.message);
+    // }
+
     function createOrder(data, actions) {
         return actions.order.create({
             purchase_units: [

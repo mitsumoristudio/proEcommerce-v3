@@ -25,7 +25,6 @@ import ResetPasswordPage from "./screens/authScreen/ResetPasswordPage";
 import MyOrdersScreen from "./screens/MyOrdersScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import AboutUsScreen from "./screens/AboutUsScreen";
-import ContactUsScreen from "./screens/ContactScreen";
 
 import PrivateRoute from "./components/PrivateRoute";
 import {AdminRoute} from "./components/AdminRoute";

@@ -3,17 +3,18 @@ import {useState} from "react";
 import {motion} from "framer-motion";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
-// import mockProducts from "../../assets/mockdata/mockProducts";
 import {Link} from "react-router-dom";
-import {useGetAllProductsQuery} from "../../features/slices/productApiSlice";
+import {useGetAllProductsQuery, useDeleteProductMutation} from "../../features/slices/productApiSlice";
 import CustomLoader from "../../components/CustomLoader";
-
+import {toast} from "react-toastify";
+// import mockProducts from "../../assets/mockdata/mockProducts";
 
 export default function ProductTableScreen() {
     const [searchTerm, setSearchTerm] = useState("");
   //  const [filterProducts, setFilterProducts] = useState(mockProducts);
-    const {data: products, isLoading, isError} = useGetAllProductsQuery();
+    const {data: products, isLoading, isError, refetch} = useGetAllProductsQuery();
     const [filteredProducts, setFilteredProducts] = useState(products);
+    const [deleteProduct] = useDeleteProductMutation();
 
     const handleSearch = (e) => {
         const term = e.target.value.toLowerCase();
@@ -23,6 +24,18 @@ export default function ProductTableScreen() {
                // const filtered = mockProducts.filter((product) => product.name.toLowerCase().includes(term));
 
         setFilteredProducts(filtered);
+    }
+
+    const deleteProductHandler = async (id) => {
+        if (window.confirm("Are you sure you want to delete this product?")) {
+            try {
+                await deleteProduct(id);
+                refetch();
+                toast.success("Product was deleted successfully!");
+            } catch (error) {
+                toast.error(error?.data?.message || error.message);
+            }
+        }
     }
 
     return (
@@ -138,7 +151,9 @@ export default function ProductTableScreen() {
                                             <button className='text-indigo-400 hover:text-indigo-300 mr-2'>Edit</button>
                                         </Link>
 
-                                        <button className='text-red-400 hover:text-red-300'>Delete</button>
+                                        <button
+                                            onClick={() => deleteProductHandler(product._id)}
+                                            className='text-red-400 hover:text-red-300'>Delete</button>
                                     </td>
                                 </motion.tr>
                             ))}

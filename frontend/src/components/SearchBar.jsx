@@ -12,7 +12,7 @@ export default function SearchBar() {
         const term = e.target.value.toLowerCase();
         setSearchTerm(term);
 
-        const filtered = products.filter((product) => product.name.toLowerCase().includes(term));
+        const filtered = filteredProducts.filter((product) => product.name.toLowerCase().includes(term));
         setFilteredProducts(filtered);
     }
     return (
