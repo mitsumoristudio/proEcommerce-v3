@@ -9,7 +9,7 @@ import productRoutes from "../backend/routes/productRoutes.js";
 import ordersRoutes from "../backend/routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import path from "path";
-import { rateLimit } from 'express-rate-limit'
+// import { rateLimit } from 'express-rate-limit'
 import helmet from "helmet";
 //import {sanitize} from "express-mongo-sanitize";
 //import {sanitizeFilter} from "mongoose";
@@ -23,16 +23,17 @@ const PORT = process.env.PORT || 5002;
 // Connect to MongooseDB
 connectToMongodb();
 
-// Rate Limit Your Endpoint
-const rateLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 500,
-    standardHeaders: "draft-8",
-    legacyHeaders: false,
-})
-// Apply the rate limiting middleware to all requests
-app.use(rateLimiter);
-app.set('trust proxy', 1 /* number of proxies between user and server */)
+// Cannot find oackage express-rate-limit
+ // Rate Limit Your Endpoint
+// const rateLimiter = rateLimit({
+//     windowMs: 15 * 60 * 1000,
+//     limit: 500,
+//     standardHeaders: "draft-8",
+//     legacyHeaders: false,
+// })
+// // Apply the rate limiting middleware to all requests
+// app.use(rateLimiter);
+// app.set('trust proxy', 1 /* number of proxies between user and server */)
 
 // Help secure Express apps by setting HTTP response headers
 app.use(helmet());
