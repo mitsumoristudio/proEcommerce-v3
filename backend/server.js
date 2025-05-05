@@ -51,10 +51,10 @@ app.use(cookieParser());
 
 // Sanitize Recieved Data
 // app.use(sanitizeFilter)
-
-app.get("/", (req, res) => {
-    res.send("API is running...")
-})
+//
+// app.get("/", (req, res) => {
+//     res.send("API is running...")
+// })
 
 // App route for login user, register user
 app.use("/api/users", userRoutes);
